@@ -1,0 +1,2 @@
+# EAS defaults to .gitignore; negate secrets needed at prebuild time.
+!google-services.json

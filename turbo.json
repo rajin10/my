@@ -1,0 +1,57 @@
+{
+	"$schema": "https://v2-9-16.turborepo.dev/schema.json",
+	"ui": "tui",
+	"globalEnv": [
+		"CLOUDFLARE_ACCOUNT_ID",
+		"CLOUDFLARE_API_TOKEN",
+		"NEXT_PUBLIC_API_URL",
+		"NEXT_PUBLIC_GOOGLE_CLIENT_ID",
+		"NEXT_PUBLIC_MARKETING_URL",
+		"NEXT_PUBLIC_PLAY_STORE_URL",
+		"NEXT_PUBLIC_APP_STORE_URL",
+		"NEXT_PUBLIC_SITE_URL",
+		"NEXT_PUBLIC_GOOGLE_MAPS_KEY",
+
+		"NEXTJS_ENV",
+		"API_URL",
+		"ENVIRONMENT",
+		"NODE_ENV"
+	],
+	"tasks": {
+		"build": {
+			"description": "Build the project",
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+			"outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+		},
+		"lint": {
+			"description": "Lint the project",
+			"dependsOn": ["^lint"]
+		},
+		"check-types": {
+			"description": "Check the types",
+			"dependsOn": ["^check-types"]
+		},
+		"dev": {
+			"description": "Start the development server",
+			"cache": false,
+			"persistent": true
+		},
+		"test": {
+			"description": "Run tests",
+			"cache": false
+		},
+		"format": {
+			"description": "Check code formatting",
+			"dependsOn": ["^format"]
+		},
+		"format:fix": {
+			"description": "Fix code formatting",
+			"dependsOn": ["^format:fix"]
+		},
+		"deploy": {
+			"description": "Deploy the package to Cloudflare",
+			"cache": false
+		}
+	}
+}

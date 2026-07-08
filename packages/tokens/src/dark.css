@@ -1,0 +1,29 @@
+/*
+ * Dark mode token overrides — mirrors DarkColors in index.ts.
+ * Brand + status colours hold; only neutrals and surfaces change.
+ *
+ * Applied when next-themes adds `.dark` on <html> (system, light, or dark).
+ */
+
+@layer base {
+	.dark {
+		--color-ink-900: #ecf0ee;
+		--color-ink-800: #d4dcd8;
+		--color-ink-700: #b9c6c1;
+		--color-ink-600: #9aaaa4;
+		--color-ink-500: #7a8d87;
+		--color-ink-400: #55635e;
+		--color-ink-300: #3d4d47;
+		--color-line-strong: #2e3d38;
+		--color-line: #243029;
+		--color-line-soft: #1c2622;
+		--color-surface: #1a2320;
+		--color-paper: #121917;
+		--color-cream: #1e2822;
+		--color-cream-deep: #182119;
+		--color-ink: #ecf0ee;
+		--color-ink-muted: #9aaaa4;
+		--color-ink-subtle: #55635e;
+		color-scheme: dark;
+	}
+}

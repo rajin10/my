@@ -1,0 +1,10 @@
+# bunfig.toml — bun runtime configuration
+#
+# NOTE: `bun test` (no "run") invokes bun's native test runner directly and
+# scans the entire repo for *.test.ts files, bypassing vitest configs.
+# This does NOT work for most packages in this repo.
+#
+# The correct command to run all tests is:
+#   bun run test          (uses turbo → each package's own runner)
+#
+# Only tools/cli uses bun's native runner. All other packages use vitest.

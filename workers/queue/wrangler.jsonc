@@ -1,0 +1,100 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "talash-queue",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-05-26",
+	"account_id": "e24dc81d9dd498a4f9a012836121167b",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true
+		},
+		"traces": {
+			"enabled": true
+		},
+		"enabled": true
+	},
+	"keep_vars": false,
+	"env": {
+		"test": {
+			"send_email": [
+				{
+					"name": "TALASH_EMAIL_TEST"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db-test",
+					"database_id": "1234567890",
+					"remote": false
+				}
+			],
+			"queues": {
+				"consumers": [
+					{
+						"queue": "talash-queues-test",
+						"dead_letter_queue": "talash-dlq-test",
+						"max_retries": 3,
+						"max_concurrency": 10
+					}
+				]
+			}
+		},
+		"staging": {
+			"send_email": [
+				{
+					"name": "TALASH_EMAIL"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db",
+					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"remote": true
+				}
+			],
+			"queues": {
+				"consumers": [
+					{
+						"queue": "talash-consumers-staging",
+						"dead_letter_queue": "talash-dlq-staging",
+						"max_retries": 3,
+						"max_concurrency": 10
+					}
+				]
+			}
+		},
+		"production": {
+			"send_email": [
+				{
+					"name": "TALASH_EMAIL"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db",
+					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"remote": true
+				}
+			],
+			"queues": {
+				"consumers": [
+					{
+						"queue": "talash-consumers",
+						"dead_letter_queue": "talash-dlq",
+						"max_retries": 3,
+						"max_concurrency": 10
+					}
+				]
+			}
+		}
+	}
+}

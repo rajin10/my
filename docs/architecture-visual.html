@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Talash — Visual Architecture Documentation</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #161b22;
+    --panel-2: #1c232c;
+    --ink: #e6edf3;
+    --muted: #9aa7b4;
+    --line: #2a313c;
+    --accent: #4f9cff;
+    --accent-2: #2ecc9b;
+    --warn: #f0b429;
+    --warn-bg: #2a2410;
+    --eng: #b794f6;
+    --exec: #2ecc9b;
+    --radius: 10px;
+    --maxw: 980px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+  }
+  /* ---- sticky table of contents ---- */
+  nav.toc {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 1.5rem 1rem 3rem 1.5rem;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+  }
+  nav.toc h1 { font-size: 1.05rem; margin: 0 0 .25rem; }
+  nav.toc .sub { color: var(--muted); font-size: .78rem; margin-bottom: 1.25rem; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: item; }
+  nav.toc li { margin: .15rem 0; }
+  nav.toc a {
+    display: block; color: var(--muted); text-decoration: none;
+    font-size: .86rem; padding: .3rem .5rem; border-radius: 6px; border-left: 2px solid transparent;
+  }
+  nav.toc a:hover { color: var(--ink); background: var(--panel-2); }
+  nav.toc a.audience-exec { border-left-color: var(--exec); }
+  nav.toc a.audience-eng { border-left-color: var(--eng); }
+  nav.toc .legend { margin-top: 1.5rem; font-size: .72rem; color: var(--muted); }
+  nav.toc .legend span { display:block; margin:.25rem 0; }
+  nav.toc .dot { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:middle; }
+
+  main { max-width: var(--maxw); padding: 2.5rem 2.5rem 6rem; }
+  header.page { margin-bottom: 2.5rem; }
+  header.page h1 { font-size: 2rem; margin: 0 0 .4rem; letter-spacing: -.02em; }
+  header.page p.lede { color: var(--muted); font-size: 1.02rem; margin: 0; max-width: 70ch; }
+  .meta-row { margin-top: 1rem; font-size: .8rem; color: var(--muted); display:flex; gap:1.25rem; flex-wrap:wrap; }
+
+  section { margin: 3rem 0; scroll-margin-top: 1rem; }
+  section > h2 {
+    font-size: 1.4rem; margin: 0 0 .25rem; padding-bottom: .4rem;
+    border-bottom: 1px solid var(--line); display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+  }
+  h3 { font-size: 1.05rem; margin: 1.75rem 0 .5rem; color: var(--ink); }
+  p { max-width: 74ch; }
+  a { color: var(--accent); }
+
+  .badge {
+    font-size: .66rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    padding: .18rem .5rem; border-radius: 20px; vertical-align: middle;
+  }
+  .badge.exec { background: rgba(46,204,155,.15); color: var(--exec); border: 1px solid rgba(46,204,155,.4); }
+  .badge.eng  { background: rgba(183,148,246,.15); color: var(--eng); border: 1px solid rgba(183,148,246,.4); }
+
+  figure { margin: 1.25rem 0 0; }
+  .diagram {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+  .diagram .mermaid { text-align: center; }
+  figcaption {
+    margin-top: .75rem; font-size: .88rem; color: var(--muted);
+    border-left: 3px solid var(--accent); padding: .25rem 0 .25rem .8rem;
+  }
+  figcaption b { color: var(--ink); font-weight: 600; }
+
+  .callout {
+    background: var(--warn-bg); border: 1px solid rgba(240,180,41,.35);
+    border-radius: var(--radius); padding: .8rem 1rem; margin: 1.25rem 0;
+    font-size: .9rem;
+  }
+  .callout::before { content: "⚠ Assumption"; display:block; font-weight:700; color: var(--warn); font-size:.74rem; letter-spacing:.05em; text-transform:uppercase; margin-bottom:.3rem; }
+  .callout.note::before { content: "ℹ Note"; color: var(--accent); }
+  .callout.note { background: rgba(79,156,255,.08); border-color: rgba(79,156,255,.3); }
+
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .88rem; }
+  th, td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; }
+  tbody tr:hover { background: var(--panel-2); }
+  code { background: var(--panel-2); padding: .1rem .35rem; border-radius: 4px; font-size: .85em; font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
+
+  details {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    margin: 1rem 0; padding: 0 1rem;
+  }
+  details > summary {
+    cursor: pointer; padding: .8rem 0; font-weight: 600; font-size: .92rem; list-style: none;
+  }
+  details > summary::before { content: "▸ "; color: var(--accent); }
+  details[open] > summary::before { content: "▾ "; }
+  details > summary::-webkit-details-marker { display: none; }
+  details .body { padding-bottom: 1rem; }
+
+  dl.glossary dt { font-weight: 700; color: var(--accent-2); margin-top: 1rem; }
+  dl.glossary dd { margin: .15rem 0 0; color: var(--ink); max-width: 74ch; }
+
+  ol.open-q { padding-left: 1.2rem; }
+  ol.open-q li { margin: .5rem 0; max-width: 74ch; }
+
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; }
+    nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--line); }
+    main { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <h1>Talash Architecture</h1>
+  <div class="sub">Visual documentation · for engineers & stakeholders</div>
+  <ol>
+    <li><a class="audience-exec" href="#overview">1 · System overview</a></li>
+    <li><a class="audience-exec" href="#context">2 · System context</a></li>
+    <li><a class="audience-eng"  href="#containers">3 · Containers &amp; components</a></li>
+    <li><a class="audience-eng"  href="#flows">4 · Key flows</a></li>
+    <li><a class="audience-eng"  href="#dataflow">5 · Data model &amp; flow</a></li>
+    <li><a class="audience-exec" href="#deployment">6 · Deployment view</a></li>
+    <li><a class="audience-exec" href="#glossary">7 · Glossary</a></li>
+    <li><a href="#accuracy">8 · Improving accuracy</a></li>
+  </ol>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--exec)"></span>Start here (non-technical)</span>
+    <span><span class="dot" style="background:var(--eng)"></span>Engineering depth</span>
+  </div>
+</nav>
+
+<main>
+  <header class="page">
+    <h1>Talash — Visual Architecture Documentation</h1>
+    <p class="lede">A layered architecture reference for the Talash booking platform. Read top-to-bottom for the big picture, or jump to a section. Diagrams marked <span class="badge exec">Stakeholder</span> are plain-language; <span class="badge eng">Engineer</span> sections carry implementation detail.</p>
+    <div class="meta-row">
+      <span>Generated: 2026-06-08</span>
+      <span>Source of truth: this monorepo (code + <code>docs/</code>)</span>
+      <span>Diagrams: Mermaid (renders in any modern browser)</span>
+    </div>
+    <div class="callout note">This page renders Mermaid diagrams from a CDN, so an internet connection is required the first time you open it. Every claim below is drawn from the codebase as of the generation date; where the code did not tell us something, it is called out as an assumption or listed in <a href="#accuracy">§8</a> rather than invented.</div>
+  </header>
+
+  <!-- ============================================================= -->
+  <section id="overview">
+    <h2>1 · System overview <span class="badge exec">Stakeholder</span></h2>
+    <p>Talash is a two-sided booking and discovery platform for the Bangladeshi wellness and beauty market. <b>Customers</b> use a mobile app and a marketing website to search for salons and spas (called <i>venues</i>), browse their services, book appointments, and leave reviews. <b>Venue owners and their staff</b> use a separate mobile app and a web dashboard to publish their venues, manage branches, services and working hours, confirm bookings, run promotions, and see analytics.</p>
+    <p>Behind these four apps sits a single backend running entirely on Cloudflare's global edge network: an HTTP API, a background job processor, and a scheduled-tasks worker, all sharing one database and a common code library. The platform exists to connect customers with local wellness providers and to give those providers the lightweight tooling they need to take and fulfil bookings — without anyone running their own servers.</p>
+    <table>
+      <thead><tr><th>Who</th><th>Uses</th><th>To do what</th></tr></thead>
+      <tbody>
+        <tr><td>Customer</td><td>mobile-app (Expo), marketing-site (Next.js)</td><td>Search venues, book &amp; cancel appointments, review, earn rewards, save favourites</td></tr>
+        <tr><td>Venue owner / manager / staff</td><td>owner-app (Expo), business-dashboard (Next.js)</td><td>Publish venues &amp; services, manage bookings &amp; team, run coupons &amp; campaigns, view analytics</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================= -->
+  <section id="context">
+    <h2>2 · System context <span class="badge exec">Stakeholder</span></h2>
+    <p>The highest-level view: Talash as a single box, the people who use it, and the outside services it depends on.</p>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart TB
+  customer["Customer<br/>mobile-app · marketing-site"]
+  owner["Venue owner / staff<br/>owner-app · business-dashboard"]
+  talash["TALASH PLATFORM<br/>Booking &amp; discovery for<br/>wellness / beauty venues"]
+  google["Google OAuth<br/>identity provider"]
+  expo["Expo Push Service<br/>mobile notifications"]
+  ai["Cloudflare Workers AI<br/>search re-ranking"]
+
+  customer -->|"search · book · review"| talash
+  talash -->|"booking &amp; review updates"| customer
+  owner -->|"manage venues · bookings · campaigns"| talash
+  talash -->|"new-booking &amp; review alerts"| owner
+  talash <-->|"sign-in (OAuth / ID token)"| google
+  talash -->|"push notifications"| expo
+  talash -->|"embeddings re-rank (optional)"| ai
+
+  classDef sys fill:#1f6feb,stroke:#4f9cff,color:#fff,stroke-width:2px;
+  classDef ext fill:#1c232c,stroke:#2a313c,color:#e6edf3;
+  classDef actor fill:#163a2f,stroke:#2ecc9b,color:#e6edf3;
+  class talash sys;
+  class google,expo,ai ext;
+  class customer,owner actor;
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> the platform's boundary and every party it talks to. <b>Takeaways:</b> (1) there are exactly two human roles — customer and owner-side — each with a web and a mobile surface; (2) Talash owns no identity or notification infrastructure of its own — it leans on Google for login and Expo for push, and uses Workers AI only as an optional search enhancer.</figcaption>
+    </figure>
+    <div class="callout">A retired <code>TALASH_EMAIL</code> binding exists in config but is <b>not</b> active (the OTP email/SMS path was removed), so no outbound email integration is drawn here.</div>
+  </section>
+
+  <!-- ============================================================= -->
+  <section id="containers">
+    <h2>3 · Containers &amp; components <span class="badge eng">Engineer</span></h2>
+    <p>Opening the box: the deployable units and the shared library, plus how requests and jobs move between them. Clients never talk to the database directly — every read and write goes through the typed <code>api-client</code> SDK into the Hono API.</p>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart TB
+  subgraph clients["Client applications"]
+    MA["mobile-app<br/>Expo · customers"]
+    MS["marketing-site<br/>Next.js · customers"]
+    OA["owner-app<br/>Expo · owners"]
+    BD["business-dashboard<br/>Next.js · owners"]
+  end
+
+  AC["api-client<br/>typed HTTP SDK"]
+
+  subgraph workers["Cloudflare Workers (edge runtime)"]
+    API["workers/api<br/>Hono HTTP API · /api/v1"]
+    Q["workers/queue<br/>background job consumer"]
+    SCH["workers/scheduled<br/>cron jobs"]
+  end
+
+  CORE["packages/core<br/>Drizzle schema · repositories · job types"]
+
+  subgraph data["Cloudflare data services"]
+    D1[("D1<br/>SQLite database")]
+    KV[("KV<br/>OAuth state · cache · rate-limit")]
+    R2[("R2<br/>venue &amp; service photos")]
+    QUEUE[["Queue<br/>talash-queues + DLQ"]]
+  end
+
+  google["Google OAuth"]
+  expo["Expo Push"]
+  ai["Workers AI"]
+
+  MA --> AC
+  MS --> AC
+  OA --> AC
+  BD --> AC
+  AC -->|"HTTPS"| API
+  API --> CORE
+  Q --> CORE
+  SCH --> CORE
+  CORE --> D1
+  API --> KV
+  API --> R2
+  API -->|"enqueue"| QUEUE
+  QUEUE --> Q
+  SCH -->|"owner alerts"| QUEUE
+  API <-->|"auth"| google
+  Q -->|"push"| expo
+  API -->|"re-rank"| ai
+
+  classDef worker fill:#1f6feb,stroke:#4f9cff,color:#fff;
+  classDef lib fill:#3a2f57,stroke:#b794f6,color:#fff;
+  classDef store fill:#1c232c,stroke:#2a313c,color:#e6edf3;
+  class API,Q,SCH worker;
+  class CORE lib;
+  class D1,KV,R2,QUEUE store;
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> four clients → one SDK → three workers → shared <code>core</code> library → Cloudflare data services. <b>Takeaways:</b> (1) <code>packages/core</code> is the linchpin — all three workers import it, so a change there rebuilds and redeploys all of them; (2) the API is the only synchronous front door, while the queue and cron workers handle everything asynchronous.</figcaption>
+    </figure>
+
+    <h3>Request path (synchronous)</h3>
+    <p>Inside <code>workers/api</code>, every request follows a strict layering: <code>Route → Service → Repository → DB</code>, with no business logic in route handlers.</p>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart LR
+  REQ["HTTP request<br/>/api/v1/..."] --> MW["Middleware<br/>CORS · requestId · query-parse<br/>JWT auth · RBAC · rate-limit · 15s timeout"]
+  MW --> RT["Route handler<br/>validate input · shape response"]
+  RT --> SVC["Service<br/>business rules · authorization"]
+  SVC --> REPO["Repository<br/>Drizzle queries"]
+  REPO --> DB[("D1")]
+  DB --> REPO --> SVC --> RT --> RESP["{ data } or PaginatedResponse"]
+  classDef store fill:#1c232c,stroke:#2a313c,color:#e6edf3;
+  class DB store;
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> the four-layer pipeline a synchronous API call passes through. <b>Takeaway:</b> cross-cutting concerns (auth, rate-limiting, timeouts, query parsing) are middleware; ownership/authorization checks live in the service layer, never the route.</figcaption>
+    </figure>
+
+    <details>
+      <summary>Component inventory (deployables &amp; shared packages)</summary>
+      <div class="body">
+        <table>
+          <thead><tr><th>Unit</th><th>Package</th><th>Kind</th><th>Responsibility</th></tr></thead>
+          <tbody>
+            <tr><td>workers/api</td><td><code>@repo/api</code></td><td>Worker (HTTP)</td><td>Public REST API on Hono; 19 domain modules; auth, RBAC, validation, KV cache, R2 uploads</td></tr>
+            <tr><td>workers/queue</td><td><code>@repo/queue</code></td><td>Worker (consumer)</td><td>Processes job batches: push/in-app notifications, rewards credit, campaign fan-out</td></tr>
+            <tr><td>workers/scheduled</td><td><code>@repo/scheduled</code></td><td>Worker (cron)</td><td>Daily/weekly maintenance: expire coupons, prune tokens, reconcile rewards</td></tr>
+            <tr><td>packages/core</td><td><code>@repo/core</code></td><td>Library</td><td>Drizzle schema, repositories, queue job types, pure domain logic (rewards)</td></tr>
+            <tr><td>packages/api-client</td><td><code>@repo/api-client</code></td><td>Library</td><td>Typed HTTP client + shared DTO types for all four frontends</td></tr>
+            <tr><td>apps/mobile-app</td><td><code>@repo/mobile-app</code></td><td>Expo app</td><td>Customer mobile experience (context + hooks)</td></tr>
+            <tr><td>apps/owner-app</td><td><code>owner-app</code></td><td>Expo app</td><td>Owner mobile experience</td></tr>
+            <tr><td>sites/marketing-site</td><td><code>@repo/marketing-site</code></td><td>Next.js</td><td>Customer web (discovery + booking)</td></tr>
+            <tr><td>sites/business-dashboard</td><td><code>@repo/business-dashboard</code></td><td>Next.js</td><td>Owner web dashboard</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================================= -->
+  <section id="flows">
+    <h2>4 · Key flows <span class="badge eng">Engineer</span></h2>
+    <p>The end-to-end processes that exercise the most of the system. Each shows the synchronous request and any asynchronous follow-up.</p>
+
+    <h3>4.1 — Customer books an appointment</h3>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+sequenceDiagram
+  autonumber
+  actor C as Customer
+  participant App as Client app
+  participant API as workers-api
+  participant DB as D1
+  participant QU as Queue
+  participant QW as Queue worker
+  participant Expo as Expo Push
+  actor O as Venue owner
+
+  C->>App: choose service, branch, slot
+  App->>API: POST /api/v1/bookings
+  API->>DB: check slot conflict + duration overlap + branch hours
+  alt slot unavailable
+    API-->>App: 409 Conflict
+  else slot free
+    API->>DB: insert booking (status = Pending)
+    API->>QU: enqueue notification.booking_created
+    API-->>App: 201 booking
+  end
+  QU->>QW: deliver job
+  QW->>DB: load booking, customer, owner
+  QW->>DB: write in-app notifications
+  QW->>Expo: push to customer and owner
+  Expo-->>C: "Booking received"
+  Expo-->>O: "New booking"
+
+  Note over O,API: Later — owner processes the booking
+  O->>API: PATCH /bookings/:id/confirm
+  API->>DB: status Pending to Confirmed
+  O->>API: PATCH /bookings/:id/complete
+  API->>DB: status Confirmed to Completed
+  API->>QU: enqueue rewards.credit
+  QW->>DB: credit reward points (price minus discount)
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> the platform's core revenue flow, including the async notification hop and the rewards side-effect on completion. <b>Takeaways:</b> (1) booking creation is guarded by three checks (exact-slot uniqueness, duration-aware overlap, working hours) before the row is written; (2) notifications and rewards are <i>never</i> sent inline — the API enqueues a job and returns immediately, and the queue worker does the slow work.</figcaption>
+    </figure>
+    <div class="callout note">Booking lifecycle is a state machine: <code>Pending → Confirmed → Completed</code>, with <code>Cancelled</code> reachable from Pending/Confirmed. Rewards are credited only on <code>complete</code>; coupon usage is reverted on <code>cancel</code>.</div>
+
+    <h3>4.2 — Google sign-in (two flows, one outcome)</h3>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+sequenceDiagram
+  autonumber
+  actor U as User
+  participant App as Client
+  participant API as workers-api
+  participant G as Google
+  participant KV as KV
+  participant DB as D1
+
+  alt Native ID-token flow (Expo device builds)
+    U->>App: tap "Sign in with Google"
+    App->>G: native Google Sign-In
+    G-->>App: Google ID token
+    App->>API: POST /auth/google/token { idToken, source }
+    API->>G: fetch JWKS, verify RS256 signature
+  else Redirect flow (web sites + Expo Go)
+    App->>API: GET /auth/google?redirect_uri&source
+    API->>KV: store state nonce (with source)
+    API-->>App: Google authorization URL
+    App->>G: open URL / redirect
+    G-->>App: callback ?code&state
+    App->>API: POST /auth/google/callback { code, state }
+    API->>KV: validate then delete state nonce
+    API->>G: exchange code, fetch profile
+  end
+  API->>DB: findOrCreateUserByGoogle (email + role from source)
+  API->>DB: persist refresh token (30 day TTL)
+  API-->>App: access token (15 min) + refresh token
+  App->>App: route by role (customer vs owner)
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> both supported sign-in paths converging on one user-provisioning step. <b>Takeaways:</b> (1) the client-declared <code>source</code> selects the account role — <code>business-app</code> → owner, everything else → customer — and is captured server-side so it can't be tampered with on callback; (2) one Google identity can back separate customer and owner accounts because the user uniqueness keys are scoped per role.</figcaption>
+    </figure>
+    <div class="callout">Sessions are JWT-based: a short-lived access token (15 min) plus a rotating refresh token (30 days). The redirect flow uses a KV-stored state nonce for CSRF protection. These TTLs are read from the API worker guide; if config has since changed, re-confirm.</div>
+
+    <h3>4.3 — Venue owner onboarding</h3>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+sequenceDiagram
+  autonumber
+  actor O as Owner
+  participant App as Owner client
+  participant API as workers-api
+  participant DB as D1
+
+  O->>API: Google sign-in (source = business-app, role owner)
+  API-->>O: owner session
+  O->>API: POST /venues  (create venue)
+  API->>DB: insert venue (ownerId, status = Draft)
+  O->>API: POST /branches?venueId  (add a branch)
+  API->>DB: insert branch
+  O->>API: PUT /branches/:id/hours  (set working hours)
+  API->>DB: upsert branch_hours rows
+  O->>API: POST /services?branchId  (add a service)
+  API->>DB: insert service
+  O->>API: PATCH /venues/:id  (status Draft to Active)
+  API->>DB: publish venue (validated transition)
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> the fixed create-sequence an owner follows to go live. <b>Takeaways:</b> (1) the data hierarchy is strictly <code>venue → branch → service</code>, so onboarding must follow that order; (2) a venue starts in <code>Draft</code> and only becomes discoverable once explicitly transitioned to <code>Active</code> (transitions are validated server-side).</figcaption>
+    </figure>
+
+    <h3>4.4 — Asynchronous jobs &amp; scheduled tasks</h3>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart LR
+  subgraph producers["Producers"]
+    API["workers/api"]
+    SCH["workers/scheduled<br/>cron triggers"]
+  end
+  QUEUE[["talash-queues"]]
+  QW["workers/queue<br/>dispatch by job type"]
+  DLQ[["talash-dlq<br/>after 3 retries"]]
+  DB[("D1")]
+  EXPO["Expo Push"]
+
+  API -->|"booking_created · booking_cancelled<br/>review_pending · rewards.credit · campaign.send"| QUEUE
+  SCH -->|"coupon_expired"| QUEUE
+  QUEUE --> QW
+  QW -->|"ack on success"| QUEUE
+  QW -.->|"retry / exhausted"| DLQ
+  QW --> DB
+  QW --> EXPO
+
+  classDef worker fill:#1f6feb,stroke:#4f9cff,color:#fff;
+  classDef store fill:#1c232c,stroke:#2a313c,color:#e6edf3;
+  class API,SCH,QW worker;
+  class DB,QUEUE,DLQ store;
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> every producer of background work, the single queue, the consumer, and the dead-letter safety net. <b>Takeaways:</b> (1) both the API and the cron worker enqueue jobs; one consumer dispatches them by type; (2) failed jobs retry up to 3 times then land in <code>talash-dlq</code> rather than being lost.</figcaption>
+    </figure>
+    <details>
+      <summary>Scheduled (cron) tasks</summary>
+      <div class="body">
+        <table>
+          <thead><tr><th>Schedule</th><th>Task</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>0 0 * * *</code> (daily)</td><td>expireOldCoupons</td><td>Marks coupons past their expiry; enqueues an owner alert per affected venue</td></tr>
+            <tr><td><code>0 2 * * *</code> (daily)</td><td>pruneExpiredRefreshTokens</td><td>Deletes refresh tokens past their TTL</td></tr>
+            <tr><td><code>0 4 * * 0</code> (weekly, Sun)</td><td>reconcileRewardBalances</td><td>Detects &amp; corrects drift between stored reward balance and the ledger</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================================= -->
+  <section id="dataflow">
+    <h2>5 · Data model &amp; flow <span class="badge eng">Engineer</span></h2>
+    <p>Where data lives and how the core entities relate. The single source of record is D1 (SQLite); other stores hold derived or transient data.</p>
+
+    <h3>5.1 — Where data is stored</h3>
+    <table>
+      <thead><tr><th>Store</th><th>Binding</th><th>Holds</th><th>Durability</th></tr></thead>
+      <tbody>
+        <tr><td>D1 (SQLite)</td><td><code>TALASH_DB</code></td><td>All domain records — users, venues, branches, services, bookings, reviews, coupons, rewards, etc.</td><td>System of record</td></tr>
+        <tr><td>KV</td><td><code>TALASH_KV</code></td><td>OAuth state nonces, rate-limit counters, cached venue profiles (5 min TTL)</td><td>Transient / derived</td></tr>
+        <tr><td>R2</td><td><code>TALASH_STORAGE</code></td><td>Venue, service &amp; user photos (binary objects)</td><td>Durable blobs</td></tr>
+        <tr><td>Queue</td><td><code>TALASH_QUEUE</code></td><td>In-flight background jobs (+ dead-letter)</td><td>In-flight messages</td></tr>
+        <tr><td>Workers AI</td><td><code>TALASH_AI</code></td><td>Search embeddings for optional re-ranking (no persistence here)</td><td>Compute only</td></tr>
+      </tbody>
+    </table>
+
+    <h3>5.2 — Core entity relationships</h3>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+erDiagram
+  users ||--o{ venues : owns
+  users ||--o{ bookings : places
+  users ||--o{ reviews : writes
+  users ||--o{ favourites : saves
+  users ||--o{ reward_points : has
+  users ||--o{ notifications : receives
+  users ||--o{ refresh_tokens : holds
+  venues ||--o{ branches : "has"
+  venues ||--o{ coupons : offers
+  venues ||--o{ campaigns : runs
+  venues ||--o{ team_members : employs
+  branches ||--o{ services : offers
+  branches ||--o{ branch_hours : "opens during"
+  branches ||--o{ bookings : hosts
+  services ||--o{ bookings : "booked as"
+  team_members ||--o{ bookings : "assigned to"
+  team_members ||--o{ staff_availability : schedules
+  bookings ||--o| reviews : yields
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> the foreign-key graph between the main tables (cardinalities from the Drizzle schema). <b>Takeaways:</b> (1) everything hangs off <code>users</code> and <code>venues</code>; the booking sits at the centre, linking a customer, a service, a branch, and optionally an assigned staff member; (2) a review is optional per booking (zero-or-one), enforced by a partial unique index on <code>booking_id</code>.</figcaption>
+    </figure>
+    <div class="callout">A few support tables (e.g. the rewards ledger backing <code>reward_points</code>, demo-requests, and auth/session detail) are omitted from the ERD to keep the core relationships legible; they exist in the schema.</div>
+
+    <h3>5.3 — How data moves</h3>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart LR
+  client["Client app"] -->|"write (book, review, upload)"| API["workers/api"]
+  client -->|"read (search, list)"| API
+  API -->|"persist / query"| D1[("D1")]
+  API -->|"cache profile (5m)"| KV[("KV")]
+  API -->|"store photo"| R2[("R2")]
+  API -->|"photo URL"| client
+  API -->|"enqueue side-effects"| QUEUE[["Queue"]]
+  QUEUE --> QW["workers/queue"]
+  QW -->|"notifications, rewards"| D1
+  QW -->|"push"| EXPO["Expo Push"]
+  SCH["workers/scheduled"] -->|"maintenance writes"| D1
+  classDef store fill:#1c232c,stroke:#2a313c,color:#e6edf3;
+  classDef worker fill:#1f6feb,stroke:#4f9cff,color:#fff;
+  class D1,KV,R2,QUEUE store;
+  class API,QW,SCH worker;
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> the read/write paths and which store each touches. <b>Takeaways:</b> (1) all durable writes funnel through the API into D1; KV is only a cache/coordination layer and R2 only holds binaries; (2) anything that fans out or can be slow (push, rewards, maintenance) is pushed onto the queue or run on cron, keeping the request path fast.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============================================================= -->
+  <section id="deployment">
+    <h2>6 · Deployment view <span class="badge exec">Stakeholder</span> <span class="badge eng">Engineer</span></h2>
+    <p>How code gets from a developer's machine to users. The backend deploys automatically through GitHub Actions; the mobile apps are released manually.</p>
+    <figure>
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart TB
+  subgraph dev["Local development"]
+    WR["wrangler dev<br/>local D1 / KV / R2 / Queue emulation"]
+  end
+  subgraph gh["GitHub Actions (ci.yml)"]
+    CI["checks job<br/>type-check · test · build (Turborepo)"]
+    DEP["deploy job<br/>wrangler-action · path-scoped by turbo graph"]
+  end
+  subgraph cf["Cloudflare — production environment"]
+    APIp["workers/api"]
+    QWp["workers/queue"]
+    SCHp["workers/scheduled"]
+    SITES["marketing-site + business-dashboard<br/>OpenNext build"]
+    DATA[("D1 · KV · R2 · Queue")]
+  end
+  EAS["EAS (manual CLI)<br/>mobile-app · owner-app → app stores"]
+
+  WR -.->|"git push"| CI
+  CI -->|"on push to main"| DEP
+  DEP -->|"deploy --env production<br/>+ D1 migrations apply"| APIp
+  DEP --> QWp
+  DEP --> SCHp
+  DEP --> SITES
+  APIp --> DATA
+  QWp --> DATA
+  SCHp --> DATA
+
+  classDef worker fill:#1f6feb,stroke:#4f9cff,color:#fff;
+  classDef store fill:#1c232c,stroke:#2a313c,color:#e6edf3;
+  class APIp,QWp,SCHp worker;
+  class DATA store;
+        </pre>
+      </div>
+      <figcaption><b>What it shows:</b> the path from local dev → CI → Cloudflare, plus the separate manual mobile release track. <b>Takeaways:</b> (1) a push to <code>main</code> runs checks then deploys only the packages affected by the change (turbo graph scoping), and D1 migrations apply automatically before the API deploys; (2) the two Next.js sites build via OpenNext, while the two Expo apps are released out-of-band through EAS — they are not part of the automated pipeline.</figcaption>
+    </figure>
+    <div class="callout">Environments confirmed from CI config: a <b>staging</b> branch deploys to <code>talash-api-staging</code> and <b>main</b> deploys to <code>talash-api-production</code>; local dev uses Wrangler emulation. Whether additional preview/per-PR environments exist is unknown — see <a href="#accuracy">§8</a>.</div>
+    <details>
+      <summary>CI/CD specifics</summary>
+      <div class="body">
+        <ul>
+          <li><b>PR → main:</b> runs the <code>checks</code> job only (type-check, test, build). Lint is run locally; it is currently commented out in CI.</li>
+          <li><b>Push → main:</b> <code>checks</code> then <code>deploy</code>, via <code>cloudflare/wrangler-action@v3</code> per package.</li>
+          <li><b>Migrations:</b> <code>d1 migrations apply TALASH_DB --env production --remote</code> runs before the API deploy, only when <code>@repo/api</code> is in scope. Idempotent; destructive migrations are split across two PRs.</li>
+          <li><b>Secrets:</b> <code>CLOUDFLARE_API_TOKEN</code>, <code>CLOUDFLARE_ACCOUNT_ID</code>. App secrets (<code>JWT_SECRET</code>, Google client id/secret) are Worker secrets, not in source.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================================================= -->
+  <section id="glossary">
+    <h2>7 · Glossary <span class="badge exec">Stakeholder</span></h2>
+    <dl class="glossary">
+      <dt>Venue / Branch / Service</dt><dd>The domain hierarchy: a <b>venue</b> is a business (e.g. a salon brand); a <b>branch</b> is one physical location of it; a <b>service</b> is a bookable offering at a branch (e.g. a haircut) with a price and duration.</dd>
+      <dt>Cloudflare Workers</dt><dd>Code that runs on Cloudflare's global edge network instead of on a traditional server, starting on demand close to the user. Talash's backend is three such workers.</dd>
+      <dt>D1</dt><dd>Cloudflare's managed SQLite database — the system of record for all Talash data.</dd>
+      <dt>KV</dt><dd>Cloudflare's key-value store, used here for short-lived data: login state, rate-limit counts, and cached profiles.</dd>
+      <dt>R2</dt><dd>Cloudflare's object/file storage — where uploaded photos live.</dd>
+      <dt>Queue / Dead-letter queue (DLQ)</dt><dd>A list of background jobs waiting to be processed. Jobs that repeatedly fail move to the <b>dead-letter queue</b> so they can be inspected rather than silently lost.</dd>
+      <dt>Cron / Scheduled worker</dt><dd>Code that runs automatically on a clock (e.g. nightly), not in response to a user request.</dd>
+      <dt>Hono</dt><dd>The lightweight web framework the API is built with.</dd>
+      <dt>Drizzle</dt><dd>The type-safe toolkit used to define database tables and write queries in code.</dd>
+      <dt>Repository / Service (layers)</dt><dd>Internal code layers: a <b>repository</b> reads/writes the database; a <b>service</b> holds business rules. Keeping them separate makes the code testable and consistent.</dd>
+      <dt>JWT / Access token / Refresh token</dt><dd>A <b>JWT</b> is a signed token proving who you are. The short-lived <b>access token</b> authorizes each request; the longer-lived <b>refresh token</b> obtains a new access token without re-logging-in.</dd>
+      <dt>OAuth</dt><dd>The standard that lets users sign in with an existing Google account instead of a Talash-specific password. Talash supports Google only.</dd>
+      <dt>RBAC</dt><dd>Role-based access control — what a user may do depends on their role (customer, owner, manager, staff).</dd>
+      <dt>Expo / EAS</dt><dd><b>Expo</b> is the framework the two mobile apps are built with; <b>EAS</b> is its build-and-submit service used to ship them to the app stores.</dd>
+      <dt>Next.js / OpenNext</dt><dd><b>Next.js</b> is the framework for the two websites; <b>OpenNext</b> adapts a Next.js build to run on Cloudflare.</dd>
+      <dt>Turborepo</dt><dd>The tool that coordinates building, testing, and deploying the many packages in this single repository, only re-running what changed.</dd>
+      <dt>Workers AI</dt><dd>Cloudflare's on-edge AI service, used optionally to re-rank search results.</dd>
+    </dl>
+  </section>
+
+  <!-- ============================================================= -->
+  <section id="accuracy">
+    <h2>8 · What would make this documentation more accurate</h2>
+    <p>This page is built strictly from the codebase and committed docs. The following were not derivable from the source and would sharpen the picture if you can provide them:</p>
+    <ol class="open-q">
+      <li><b>Scale figures.</b> Active users, peak requests-per-second, booking volume, and data size are unknown — no numbers were invented. These would let us add capacity/limits to the diagrams.</li>
+      <li><b>Environments beyond staging/production.</b> CI confirms <code>staging</code> and <code>main</code> targets; whether per-PR preview deployments or other environments exist is unconfirmed.</li>
+      <li><b>Observability &amp; alerting.</b> A dead-letter queue (<code>talash-dlq</code>) exists, but whether it (and worker logs/metrics) is actively monitored, and how on-call/alerting works, is unknown.</li>
+      <li><b>Email status.</b> <code>TALASH_EMAIL</code> is provisioned but the OTP email path was retired. Confirm whether transactional email is planned to return, or the binding should be removed.</li>
+      <li><b>Token TTLs &amp; rate limits.</b> Access (15 min) / refresh (30 day) TTLs and specific rate-limit thresholds are taken from in-repo guides; confirm they match current Worker config and secrets.</li>
+      <li><b>Disaster recovery.</b> Backup/restore strategy for D1 and R2, and any RPO/RTO targets, are not documented in the repo.</li>
+      <li><b>External SLAs.</b> Expected behaviour when Google OAuth, Expo Push, or Workers AI are degraded (timeouts, fallbacks) is partly visible in code but not stated as policy.</li>
+      <li><b>Regional/data-residency requirements.</b> Whether the Bangladeshi market imposes data-residency constraints (relevant given Cloudflare's global edge) is unknown.</li>
+    </ol>
+    <div class="callout note">Saved to <code>docs/architecture-visual.html</code>. To keep diagrams faithful as the system evolves, regenerate from source after any change to schema, routes, queue job types, or CI config — the same files this page was built from.</div>
+  </section>
+</main>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "dark",
+    securityLevel: "loose",
+    themeVariables: {
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      primaryColor: "#1c232c",
+      primaryTextColor: "#e6edf3",
+      primaryBorderColor: "#2a313c",
+      lineColor: "#6e7a89",
+      secondaryColor: "#161b22",
+      tertiaryColor: "#0f1419"
+    }
+  });
+</script>
+</body>
+</html>

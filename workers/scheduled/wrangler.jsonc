@@ -1,0 +1,91 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "talash-scheduled",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-05-26",
+	"account_id": "e24dc81d9dd498a4f9a012836121167b",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true
+		},
+		"traces": {
+			"enabled": true
+		},
+		"enabled": true
+	},
+	"keep_vars": false,
+	"env": {
+		"test": {
+			"triggers": {
+				"crons": ["0 0 * * *", "0 2 * * *", "0 3 * * *", "0 4 * * SUN"]
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db-test",
+					"database_id": "1234567890",
+					"remote": false
+				}
+			],
+			"queues": {
+				"producers": [
+					{
+						"queue": "talash-queues-test",
+						"binding": "TALASH_QUEUE",
+						"remote": false
+					}
+				]
+			}
+		},
+		"staging": {
+			"triggers": {
+				"crons": ["0 0 * * *", "0 2 * * *", "0 3 * * *", "0 4 * * SUN"]
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db",
+					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"remote": true
+				}
+			],
+			"queues": {
+				"producers": [
+					{
+						"queue": "talash-queues",
+						"binding": "TALASH_QUEUE",
+						"remote": true
+					}
+				]
+			}
+		},
+		"production": {
+			"triggers": {
+				"crons": ["0 0 * * *", "0 2 * * *", "0 3 * * *", "0 4 * * SUN"]
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db",
+					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"remote": true
+				}
+			],
+			"queues": {
+				"producers": [
+					{
+						"queue": "talash-queues",
+						"binding": "TALASH_QUEUE",
+						"remote": true
+					}
+				]
+			}
+		}
+	}
+}

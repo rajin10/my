@@ -1,0 +1,109 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+	"extends": [],
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"a11y": {
+				"useButtonType": "off",
+				"useSemanticElements": "off",
+				"useValidAnchor": "info",
+				"noLabelWithoutControl": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off",
+				"noNonNullAssertedOptionalChain": "info",
+				"noExplicitAny": "info"
+			},
+			"style": {
+				"noNonNullAssertion": "info"
+			},
+			"performance": {
+				"noImgElement": "info"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab"
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"includes": [
+			"**",
+			"!.claude",
+			"!**/routeTree.gen.ts",
+			"!**/*.d.ts",
+			"!**/*.json",
+			"!**/dist",
+			"!**/build",
+			"!**/out",
+			"!**/coverage",
+			"!**/node_modules",
+			"!**/vendor",
+			"!**/third_party",
+			"!**/bower_components",
+			"!**/jspm_packages",
+			"!**/.next",
+			"!**/.open-next",
+			"!**/.nuxt",
+			"!**/.vercel",
+			"!**/.cache",
+			"!**/*..vscode",
+			"!**/.parcel-cache",
+			"!**/.wrangler",
+			"!**/.eslintcache",
+			"!**/.prettiercache",
+			"!**/.biomecache",
+			"!**/.tsbuildinfo",
+			"!**/.git",
+			"!**/.hg",
+			"!**/.svn",
+			"!**/.DS_Store",
+			"!**/Thumbs.db",
+			"!**/desktop.ini",
+			"!**/*.log",
+			"!**/*.tmp",
+			"!**/*.temp",
+			"!**/*.bak",
+			"!**/*.zip",
+			"!**/*.tar",
+			"!**/*.gz",
+			"!**/*.7z",
+			"!**/*.rar",
+			"!**/*.exe",
+			"!**/*.dll",
+			"!**/*.bin",
+			"!**/*.iso",
+			"!**/*.dmg",
+			"!**/*.msi",
+			"!**/*.apk",
+			"!**/*.app",
+			"!**/*.remember"
+		]
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double"
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	}
+}

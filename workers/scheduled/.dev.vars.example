@@ -1,0 +1,6 @@
+# Copy this file to .dev.vars and fill in the values.
+# .dev.vars is loaded by `wrangler dev` and overrides wrangler.jsonc vars locally.
+# Never commit .dev.vars — it is gitignored.
+
+# No secrets required — the scheduled worker only uses the TALASH_DB binding,
+# which is configured as a resource binding in wrangler.jsonc.

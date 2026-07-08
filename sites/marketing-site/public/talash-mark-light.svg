@@ -1,0 +1,7 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Talash">
+  <circle cx="21" cy="20" r="13" stroke="#F3F8F6" stroke-width="3.4"></circle>
+  <path d="M30.5 29.5 L40 39" stroke="#B9E5D8" stroke-width="3.8" stroke-linecap="round"></path>
+  <path d="M26.8 14.3 L22.6 21.4 L15.2 25.7 L19.4 18.6 Z" fill="#E2C893"></path>
+  <path d="M22.6 21.4 L26.8 14.3 L19.4 18.6 Z" fill="#3FB89B"></path>
+  <circle cx="21" cy="20" r="1.7" fill="#08362C"></circle>
+</svg>

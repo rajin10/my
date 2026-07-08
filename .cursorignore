@@ -1,0 +1,14 @@
+# Keep Cursor indexing focused on source and documentation.
+node_modules
+.turbo
+.wrangler
+.expo
+.vercel
+dist
+build
+coverage
+docs/archive
+
+apps/worker/web/routeTree.gen.ts
+apps/worker/worker-configuration.d.ts
+bun.lockb

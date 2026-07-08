@@ -1,0 +1,266 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "talash-api",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-05-26",
+	"account_id": "e24dc81d9dd498a4f9a012836121167b",
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true
+		},
+		"traces": {
+			"enabled": true
+		},
+		"enabled": true
+	},
+	"preview_urls": true,
+	"upload_source_maps": true,
+	"placement": {
+		"mode": "smart"
+	},
+	"keep_vars": false,
+	"compatibility_flags": ["nodejs_compat"],
+	"env": {
+		// LOCAL-ONLY env: full simulated bindings (no remote, dummy IDs) so
+		// `wrangler dev --env local --local` and `d1 migrations apply --env local
+		// --local` run end-to-end on a clean machine with no Cloudflare auth.
+		// Never used for deploys — test/staging/production are the deploy source of truth.
+		"local": {
+			"vars": {
+				"ENVIRONMENT": "development",
+				"ENABLE_OTP_DEV_RESPONSE": "true",
+				"PUBLIC_R2_URL": "storage.talash.bd",
+				"ALLOWED_ORIGINS": "http://localhost:3000,http://localhost:3001",
+				"ALLOWED_RESET_URIS": "http://localhost:3000/auth/reset-password,http://localhost:3001/auth/reset-password,mobileapp://auth/reset-password,ownerapp://auth/reset-password",
+				"EMAIL_FROM": "noreply@talash.bd",
+				"JWT_SECRET": "a94db32b-08ec-4cbc-9795-a17aa55ca685",
+				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com"
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db-local",
+					"database_id": "00000000-0000-0000-0000-000000000000",
+					"migrations_dir": "src/database/migrations",
+					"migrations_table": "migrations",
+					"remote": false
+				}
+			],
+			"kv_namespaces": [
+				{
+					"binding": "TALASH_KV",
+					"id": "talash_kv_local",
+					"remote": false
+				}
+			],
+			"r2_buckets": [
+				{
+					"bucket_name": "talash-storage-local",
+					"binding": "TALASH_STORAGE",
+					"remote": false
+				}
+			],
+			"queues": {
+				"producers": [
+					{
+						"queue": "talash-queues-local",
+						"binding": "TALASH_QUEUE",
+						"remote": false
+					}
+				]
+			},
+			"services": [
+				{ "binding": "AUTH_SERVICE", "service": "talash-auth-service" },
+				{ "binding": "LPG_SERVICE", "service": "talash-lpg-service" },
+				{ "binding": "BOOKING_SERVICE", "service": "talash-booking-service" }
+			]
+		},
+		"test": {
+			"vars": {
+				"ENVIRONMENT": "test",
+				"ENABLE_OTP_DEV_RESPONSE": "false",
+				"PUBLIC_R2_URL": "https://storage-test.talash.bd",
+				"GOOGLE_CLIENT_ID": "<GOOGLE_CLIENT_ID_TEST>",
+				"ALLOWED_ORIGINS": "https://test.talash.bd, https://test-studio.talash.bd, http://localhost:3000, http://localhost:3001"
+			},
+			"ai": {
+				"binding": "TALASH_AI",
+				"remote": false
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db-test",
+					"database_id": "1234567890",
+					"migrations_dir": "src/database/migrations",
+					"migrations_table": "migrations",
+					"remote": false
+				}
+			],
+			"kv_namespaces": [
+				{
+					"binding": "TALASH_KV",
+					"id": "<KV_NAMESPACE_ID_TEST>",
+					"remote": false
+				}
+			],
+			"r2_buckets": [
+				{
+					"bucket_name": "talash-storage-test",
+					"binding": "TALASH_STORAGE",
+					"remote": false
+				}
+			],
+			"queues": {
+				"producers": [
+					{
+						"queue": "talash-queues-test",
+						"binding": "TALASH_QUEUE",
+						"remote": false
+					}
+				]
+			},
+			"send_email": [
+				{
+					"name": "TALASH_EMAIL_TEST",
+					"remote": false
+				}
+			]
+		},
+		"staging": {
+			"vars": {
+				"ENVIRONMENT": "staging",
+				"ENABLE_OTP_DEV_RESPONSE": "false",
+				"PUBLIC_R2_URL": "https://storage.talash.bd",
+				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+				"ALLOWED_ORIGINS": "https://talash.bd, https://www.talash.bd, https://studio.talash.bd, https://www.studio.talash.bd, https://business.talash.bd, https://www.business.talash.bd, https://talash-marketing-site.hasibur.workers.dev, https://talash-business-dashboard.hasibur.workers.dev, https://talash-marketing-site-staging.hasibur.workers.dev, https://talash-business-dashboard-staging.hasibur.workers.dev"
+			},
+			"ai": {
+				"binding": "TALASH_AI",
+				"remote": true
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db",
+					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"migrations_dir": "src/database/migrations",
+					"migrations_table": "migrations",
+					"remote": true
+				}
+			],
+			"kv_namespaces": [
+				{
+					"binding": "TALASH_KV",
+					"id": "501beb10c51f443395fa891471662853",
+					"remote": true
+				}
+			],
+			"r2_buckets": [
+				{
+					"bucket_name": "talash-storage",
+					"binding": "TALASH_STORAGE",
+					"remote": true
+				}
+			],
+			"queues": {
+				"producers": [
+					{
+						"queue": "talash-queues",
+						"binding": "TALASH_QUEUE",
+						"remote": true
+					}
+				]
+			},
+			"send_email": [
+				{
+					"name": "TALASH_EMAIL",
+					"remote": true
+				}
+			],
+			"services": [
+				{ "binding": "AUTH_SERVICE", "service": "talash-auth-service" },
+				{ "binding": "LPG_SERVICE", "service": "talash-lpg-service" },
+				{ "binding": "BOOKING_SERVICE", "service": "talash-booking-service" }
+			]
+		},
+		"production": {
+			"vars": {
+				"ENVIRONMENT": "production",
+				"ENABLE_OTP_DEV_RESPONSE": "false",
+				"PUBLIC_R2_URL": "https://storage.talash.bd",
+				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+				"ALLOWED_ORIGINS": "https://talash.bd, https://www.talash.bd, https://studio.talash.bd, https://www.studio.talash.bd, https://talash-marketing-site.hasibur.workers.dev, https://talash-business-dashboard.hasibur.workers.dev, https://talash-marketing-site-production.hasibur.workers.dev, https://talash-business-dashboard-production.hasibur.workers.dev"
+			},
+			"ai": {
+				"binding": "TALASH_AI",
+				"remote": true
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db",
+					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"migrations_dir": "src/database/migrations",
+					"migrations_table": "migrations",
+					"remote": true
+				}
+			],
+			"kv_namespaces": [
+				{
+					"binding": "TALASH_KV",
+					"id": "3756ed88c35846098dc79548cfd00b0d",
+					"remote": true
+				}
+			],
+			"r2_buckets": [
+				{
+					"bucket_name": "talash-storage",
+					"binding": "TALASH_STORAGE",
+					"remote": true
+				}
+			],
+			"queues": {
+				"producers": [
+					{
+						"queue": "talash-queues",
+						"binding": "TALASH_QUEUE",
+						"remote": true
+					}
+				]
+			},
+			"send_email": [
+				{
+					"name": "TALASH_EMAIL",
+					"remote": true
+				}
+			],
+			"services": [
+				{ "binding": "AUTH_SERVICE", "service": "talash-auth-service" },
+				{ "binding": "LPG_SERVICE", "service": "talash-lpg-service" },
+				{ "binding": "BOOKING_SERVICE", "service": "talash-booking-service" }
+			],
+			"routes": [
+				{
+					"pattern": "api.talash.bd",
+					"zone_name": "talash.bd",
+					"custom_domain": true,
+					"enabled": true,
+					"previews_enabled": false
+				},
+				{
+					"pattern": "api.talash.com.bd",
+					"zone_name": "talash.com.bd",
+					"custom_domain": true,
+					"enabled": true,
+					"previews_enabled": false
+				}
+			]
+		}
+	}
+}

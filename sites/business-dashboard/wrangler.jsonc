@@ -1,0 +1,109 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "talash-business-dashboard",
+	"main": ".open-next/worker.js",
+	"compatibility_date": "2026-05-26",
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".open-next/assets"
+	},
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true
+		},
+		"traces": {
+			"enabled": true
+		},
+		"enabled": true
+	},
+	"placement": {
+		"mode": "smart"
+	},
+	"upload_source_maps": true,
+	"preview_urls": true,
+	"keep_vars": false,
+	"env": {
+		"local": {
+			"vars": {
+				"NEXTJS_ENV": "development",
+				"API_URL": "http://localhost:8787",
+				"NEXT_PUBLIC_API_URL": "http://localhost:8787",
+				"NEXT_PUBLIC_MARKETING_URL": "http://localhost:3000",
+				"NEXT_PUBLIC_GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+				"SITE_URL": "http://localhost:3000"
+			}
+		},
+		"test": {
+			"vars": {
+				"NEXTJS_ENV": "development",
+				"API_URL": "http://localhost:8787",
+				"NEXT_PUBLIC_API_URL": "http://localhost:8787",
+				"NEXT_PUBLIC_MARKETING_URL": "http://localhost:3000",
+				"NEXT_PUBLIC_GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+				"SITE_URL": "http://localhost:3000"
+			}
+		},
+		"staging": {
+			"vars": {
+				"NEXTJS_ENV": "staging",
+				"API_URL": "https://api.talash.com.bd",
+				"NEXT_PUBLIC_API_URL": "https://api.talash.com.bd",
+				"NEXT_PUBLIC_GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+				"NEXT_PUBLIC_MARKETING_URL": "https://business.talash.com.bd",
+				"SITE_URL": "https://business.talash.com.bd"
+			},
+			"routes": [
+				{
+					"pattern": "business.talash.bd",
+					"zone_name": "talash.bd",
+					"custom_domain": true,
+					"enabled": true,
+					"previews_enabled": false
+				},
+				{
+					"pattern": "business.talash.com.bd",
+					"zone_name": "talash.com.bd",
+					"custom_domain": true,
+					"enabled": true,
+					"previews_enabled": false
+				}
+			]
+		},
+		"production": {
+			"vars": {
+				"NEXTJS_ENV": "production",
+				"API_URL": "https://api.talash.bd",
+				"NEXT_PUBLIC_API_URL": "https://api.talash.bd",
+				"NEXT_PUBLIC_GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+				"NEXT_PUBLIC_MARKETING_URL": "https://business.talash.bd",
+				"SITE_URL": "https://business.talash.bd"
+			},
+			"routes": [
+				    {
+				      "pattern": "business.talash.bd",
+				      "zone_name": "talash.bd",
+				      "custom_domain": true,
+				      "enabled": true,
+				      "previews_enabled": false
+				    },
+				    {
+				      "pattern": "business.talash.com.bd",
+				      "zone_name": "talash.com.bd",
+				      "custom_domain": true,
+				      "enabled": true,
+				      "previews_enabled": false
+				    }
+				]
+		}
+	}
+}

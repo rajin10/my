@@ -1,0 +1,11 @@
+{
+	"recommendations": [
+		"expo.vscode-expo-tools",
+		"biome-biome.vscode-biome",
+		"bradlc.vscode-tailwindcss",
+		"oven.bun-vscode",
+		"dsznajder.es7-react-js-snippets",
+		"streetsidesoftware.code-spell-checker",
+		"aaron-bond.better-comments"
+	]
+}

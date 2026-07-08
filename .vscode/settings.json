@@ -1,0 +1,75 @@
+{
+	"editor.formatOnSave": true,
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.codeActionsOnSave": {
+		"source.biome": "explicit",
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+	"biome.requireConfiguration": true,
+	"biome.enabled": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"files.readonlyInclude": {
+		"**/routeTree.gen.ts": true
+	},
+	"files.watcherExclude": {
+		"**/routeTree.gen.ts": true
+	},
+	"search.exclude": {
+		"**/routeTree.gen.ts": true,
+		"**/worker-configuration.d.ts": true
+	},
+	"files.exclude": {
+		"**/node_modules": true,
+		"**/build": true,
+		"**/dist": true,
+		"**/temp": true,
+		"**/logs": true,
+		"**/documentation": true,
+		"**/.tanstack": true,
+		// "**/.wrangler": true,
+		"**/components.json": true,
+		"**/ecosystem.config.json": true,
+		"**/next-env.d.ts": true,
+		"**/nginx.conf": true,
+		"**/pnpm-lock.yaml": true,
+		"**/bun.lock": true,
+		"**/pnpm-workspace.yaml": true,
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+		"**/coverage": true,
+		"**/coverage/**": true,
+		"**/coverage/**/**": true,
+		"**/*.husky": true,
+		"**/.turbo": true,
+		"**/.open-next": true,
+		"**/.next": true,
+		"**/worker-configuration.d.ts": true
+	},
+	 "files.associations": {
+    "*.css": "tailwindcss"
+  },
+	"tailwindCSS.classFunctions": ["tw", "clsx", "cn", "tw\\.[a-z-]+"],
+}

@@ -1,0 +1,6 @@
+# Copy this file to .dev.vars and fill in the values.
+# .dev.vars is loaded by `wrangler dev` and overrides wrangler.jsonc vars locally.
+# Never commit .dev.vars — it is gitignored.
+
+# Email OTPs are sent via the TALASH_EMAIL send_email binding — no key needed here.
+# SMS OTPs are currently logged to console (provider not yet configured).

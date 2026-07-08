@@ -1,0 +1,25 @@
+# AI/search context exclusions.
+
+# These files are generated, bulky, or low-value during normal feature work.
+
+node_modules
+.turbo
+.wrangler
+.expo
+.vercel
+dist
+build
+coverage
+docs/archive
+
+apps/worker/web/routeTree.gen.ts
+apps/worker/worker-configuration.d.ts
+bun.lockb
+_.lock
+_.log
+_.tsbuildinfo
+_.d.ts
+_.map
+_.json
+_.yaml
+_.yml

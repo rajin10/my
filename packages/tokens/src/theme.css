@@ -1,0 +1,90 @@
+/*
+ * Talash design tokens — shared CSS @theme (single source of truth for web + NativeWind).
+ *
+ * Consumed by every surface via `@import "@repo/tokens/theme.css"` (or a relative
+ * path). Web globals add their own typography / shadow / motion tokens on top.
+ *
+ * Colors mirror `index.ts` exactly — `index.test.ts` fails if they drift.
+ * Prefer the SEMANTIC roles (--color-primary, --color-on-primary, --color-accent,
+ * --color-ink…) over the raw ramp (--color-primary-600). The raw ramp is retained
+ * until references are migrated (issue #54).
+ */
+
+@theme {
+	/* ── Raw ramp — Primary (Emerald / Forest) ── */
+	--color-primary-950: #052620;
+	--color-primary-900: #08362c;
+	--color-primary-800: #0b4a3c;
+	--color-primary-700: #0b5c4b;
+	--color-primary-600: #0e7c66;
+	--color-primary-500: #149a7e;
+	--color-primary-400: #3fb89b;
+	--color-primary-300: #79d0ba;
+	--color-primary-200: #b9e5d8;
+	--color-primary-100: #e8f2ee;
+	--color-primary-50: #f3f8f6;
+
+	/* ── Raw ramp — Neutrals ── */
+	--color-ink-900: #14201c;
+	--color-ink-800: #22302b;
+	--color-ink-700: #33403b;
+	--color-ink-600: #4a564f;
+	--color-ink-500: #5e6b65;
+	--color-ink-400: #8a958f;
+	--color-ink-300: #b9c1bc;
+	--color-line-strong: #d5dbd7;
+	--color-line: #e4e8e5;
+	--color-line-soft: #eef1ef;
+	--color-surface: #ffffff;
+	--color-paper: #fbfaf6;
+	--color-cream: #f5f1e8;
+	--color-cream-deep: #ece5d5;
+
+	/* ── Raw ramp — Accent (Brass / Gold) ── */
+	--color-gold-700: #9c7634;
+	--color-gold-600: #b8893f;
+	--color-gold-500: #c9a063;
+	--color-gold-300: #e2c893;
+	--color-gold-100: #f6eedc;
+
+	/* ── Semantic status (static — never tenant-themeable) ── */
+	--color-success: #149a7e;
+	--color-success-bg: #e3f3ee;
+	--color-success-fg: #0b5c4b;
+	--color-pending: #c98a1e;
+	--color-pending-bg: #faf0dc;
+	--color-pending-fg: #8a5e0f;
+	--color-danger: #c0492f;
+	--color-danger-bg: #fae8e2;
+	--color-danger-fg: #8a2f1b;
+	--color-info: #2e7d8c;
+	--color-info-bg: #e2f0f2;
+	--color-info-fg: #1b5560;
+
+	/* ── Semantic roles — Brand (themeable) ── */
+	--color-primary: #0e7c66;
+	--color-primary-strong: #0b5c4b;
+	--color-primary-deep: #08362c;
+	--color-primary-soft: #f3f8f6;
+	--color-primary-muted: #e8f2ee;
+	--color-on-primary: #ffffff;
+
+	/* ── Semantic roles — Accent (themeable) ── */
+	--color-accent: #c9a063;
+	--color-accent-strong: #9c7634;
+	--color-accent-soft: #f6eedc;
+	--color-on-accent: #14201c;
+
+	/* ── Semantic roles — Ink / text (static) ── */
+	--color-ink: #14201c;
+	--color-ink-muted: #4a564f;
+	--color-ink-subtle: #8a958f;
+
+	/* ── Border radius (shared scale; web also exposes --radius-full) ── */
+	--radius-xs: 6px;
+	--radius-sm: 10px;
+	--radius-md: 14px;
+	--radius-lg: 20px;
+	--radius-xl: 28px;
+	--radius-full: 9999px;
+}

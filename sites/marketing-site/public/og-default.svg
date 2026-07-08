@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Talash">
+  <rect width="1200" height="630" fill="#0E7C66"/>
+  <circle cx="600" cy="260" r="56" fill="#FBFAF6" opacity="0.12"/>
+  <text x="600" y="300" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="600" fill="#FBFAF6">Talash</text>
+  <text x="600" y="380" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#FBFAF6" opacity="0.92">Discover and book services near you</text>
+</svg>

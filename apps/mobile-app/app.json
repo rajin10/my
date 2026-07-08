@@ -1,0 +1,103 @@
+{
+  "expo": {
+    "name": "Talash",
+    "slug": "talash",
+    "owner": "hasib_dev",
+    "version": "0.0.4",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "orientation": "default",
+    "icon": "./assets/images/icon.png",
+    "scheme": "mobileapp",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "talash.bd",
+      "icon": "./assets/images/icon.png",
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "Talash discovers your shop on local Wi‑Fi for walk-in booking when mobile data is unavailable.",
+        "NSBonjourServices": [
+          "_talash-walkin._tcp"
+        ]
+      }
+    },
+    "android": {
+      "package": "talash.bd",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "googleServicesFile": "./google-services.json",
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#208AEF",
+          "android": {
+            "image": "./assets/images/splash-icon.png",
+            "imageWidth": 76
+          }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#208AEF",
+          "androidMode": "default"
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.163196138441-h5mvu9m86d0ru8fngdsrh8s1trj48gnb"
+        }
+      ],
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Talash to scan shop QR codes for walk-in booking."
+        }
+      ]
+    ],
+    "extra": {
+      "googleWebClientId": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+      "router": {},
+      "eas": {
+        "projectId": "a519e763-e045-43c8-9b49-72de8617146c"
+      }
+    },
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true,
+      "autolinkingModuleResolution": true
+    }
+  }
+}

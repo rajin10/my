@@ -1,0 +1,96 @@
+{
+  "expo": {
+    "name": "Talash Owner",
+    "slug": "talash-business",
+    "owner": "hasib_dev",
+    "version": "1.0.4",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "orientation": "default",
+    "icon": "./assets/images/icon.png",
+    "scheme": "ownerapp",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "business.talash.bd",
+      "icon": "./assets/images/icon.png",
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "Talash Owner broadcasts walk-in bookings on your shop Wi‑Fi when mobile data is unavailable.",
+        "NSBonjourServices": [
+          "_talash-walkin._tcp"
+        ]
+      }
+    },
+    "android": {
+      "package": "business.talash.bd",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "googleServicesFile": "./google-services.json",
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE",
+        "android.permission.POST_NOTIFICATIONS"
+      ]
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#208AEF",
+          "android": {
+            "image": "./assets/images/splash-icon.png",
+            "imageWidth": 76
+          }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#208AEF",
+          "androidMode": "default"
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.163196138441-h5mvu9m86d0ru8fngdsrh8s1trj48gnb"
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "extra": {
+      "googleWebClientId": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
+      "router": {},
+      "eas": {
+        "projectId": "fe5dde7f-0506-4596-9786-0ebc55f735f9"
+      }
+    },
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true,
+      "autolinkingModuleResolution": true
+    }
+  }
+}

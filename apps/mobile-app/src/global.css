@@ -1,0 +1,6 @@
+@import "tailwindcss";
+/* Shared design tokens (colors + radius) — single source of truth in @repo/tokens */
+@import "../../../packages/tokens/src/theme.css";
+/* Scan the shared component library so its className utilities are generated
+   here too (#64 adoption — these components live outside the app source tree). */
+@source "../../../packages/ui-native/src/**/*.{ts,tsx}";
