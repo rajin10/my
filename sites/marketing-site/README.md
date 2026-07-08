@@ -18,3 +18,5 @@ bun run --filter @repo/marketing-site deploy:production
 ```
 
 Staging deploys run via GitHub Actions (push to `staging`) and serve on the account's workers.dev subdomain.
+
+Production serves at https://talash.mahannankhan.info; the API base is https://api.mahannankhan.info.

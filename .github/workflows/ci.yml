@@ -60,6 +60,9 @@ jobs:
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      # Backend resources (D1, KV, queues) don't exist on the new Cloudflare
+      # account yet — flip to 'true' once they are provisioned.
+      DEPLOY_WORKERS: "false"
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
@@ -162,7 +165,7 @@ jobs:
       - name: Apply D1 migrations
         # Idempotent — only unapplied migrations are executed.
         # Runs before the worker deploy so the schema is ready.
-        if: steps.scope.outputs.api == 'true'
+        if: steps.scope.outputs.api == 'true' && env.DEPLOY_WORKERS == 'true'
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -172,7 +175,7 @@ jobs:
           command: d1 migrations apply TALASH_DB --env ${{ github.ref == 'refs/heads/staging' && 'staging' || 'production' }} --remote
 
       - name: Deploy API worker
-        if: steps.scope.outputs.api == 'true'
+        if: steps.scope.outputs.api == 'true' && env.DEPLOY_WORKERS == 'true'
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -182,7 +185,7 @@ jobs:
           command: deploy --env ${{ github.ref == 'refs/heads/staging' && 'staging' || 'production' }} --minify
 
       - name: Deploy Queue worker
-        if: steps.scope.outputs.queue == 'true'
+        if: steps.scope.outputs.queue == 'true' && env.DEPLOY_WORKERS == 'true'
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -192,7 +195,7 @@ jobs:
           command: deploy --env ${{ github.ref == 'refs/heads/staging' && 'staging' || 'production' }} --minify
 
       - name: Deploy Scheduled worker
-        if: steps.scope.outputs.scheduled == 'true'
+        if: steps.scope.outputs.scheduled == 'true' && env.DEPLOY_WORKERS == 'true'
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
