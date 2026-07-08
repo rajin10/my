@@ -148,7 +148,7 @@
 				{
 					"binding": "TALASH_DB",
 					"database_name": "talash-db",
-					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"database_id": "ba52668e-06f4-49f8-baf5-a5658385b850",
 					"migrations_dir": "src/database/migrations",
 					"migrations_table": "migrations",
 					"remote": true
@@ -157,7 +157,7 @@
 			"kv_namespaces": [
 				{
 					"binding": "TALASH_KV",
-					"id": "501beb10c51f443395fa891471662853",
+					"id": "1501d92d214d4282a0cd7594cd5c13fe",
 					"remote": true
 				}
 			],
@@ -205,7 +205,7 @@
 				{
 					"binding": "TALASH_DB",
 					"database_name": "talash-db",
-					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"database_id": "ba52668e-06f4-49f8-baf5-a5658385b850",
 					"migrations_dir": "src/database/migrations",
 					"migrations_table": "migrations",
 					"remote": true
@@ -214,36 +214,16 @@
 			"kv_namespaces": [
 				{
 					"binding": "TALASH_KV",
-					"id": "3756ed88c35846098dc79548cfd00b0d",
+					"id": "24e65a2585ff4c22ad809799bb2f65bb",
 					"remote": true
 				}
 			],
-			"r2_buckets": [
-				{
-					"bucket_name": "talash-storage",
-					"binding": "TALASH_STORAGE",
-					"remote": true
-				}
-			],
-			"queues": {
-				"producers": [
-					{
-						"queue": "talash-queues",
-						"binding": "TALASH_QUEUE",
-						"remote": true
-					}
-				]
-			},
-			"send_email": [
-				{
-					"name": "TALASH_EMAIL",
-					"remote": true
-				}
-			],
+			// R2, queues and send_email are omitted until those products are
+			// enabled on this Cloudflare account (R2 activation / Workers Paid).
 			"services": [
-				{ "binding": "AUTH_SERVICE", "service": "talash-auth-service" },
-				{ "binding": "LPG_SERVICE", "service": "talash-lpg-service" },
-				{ "binding": "BOOKING_SERVICE", "service": "talash-booking-service" }
+				{ "binding": "AUTH_SERVICE", "service": "talash-auth-service-production" },
+				{ "binding": "LPG_SERVICE", "service": "talash-lpg-service-production" },
+				{ "binding": "BOOKING_SERVICE", "service": "talash-booking-service-production" }
 			],
 			"routes": [
 				{

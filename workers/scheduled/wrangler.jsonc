@@ -51,7 +51,7 @@
 				{
 					"binding": "TALASH_DB",
 					"database_name": "talash-db",
-					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"database_id": "ba52668e-06f4-49f8-baf5-a5658385b850",
 					"remote": true
 				}
 			],
@@ -73,7 +73,7 @@
 				{
 					"binding": "TALASH_DB",
 					"database_name": "talash-db",
-					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"database_id": "ba52668e-06f4-49f8-baf5-a5658385b850",
 					"remote": true
 				}
 			],

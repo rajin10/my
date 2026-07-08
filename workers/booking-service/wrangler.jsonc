@@ -79,7 +79,7 @@
 				{
 					"binding": "TALASH_DB",
 					"database_name": "talash-db",
-					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"database_id": "ba52668e-06f4-49f8-baf5-a5658385b850",
 					"migrations_dir": "../api/src/database/migrations",
 					"migrations_table": "migrations",
 					"remote": true
@@ -95,7 +95,7 @@
 			"kv_namespaces": [
 				{
 					"binding": "TALASH_KV",
-					"id": "TALASH_KV_STAGING_ID"
+					"id": "1501d92d214d4282a0cd7594cd5c13fe"
 				}
 			],
 			"queues": {
@@ -124,39 +124,24 @@
 				{
 					"binding": "TALASH_DB",
 					"database_name": "talash-db",
-					"database_id": "85eeeb53-0cff-4586-ae93-02ea7b81ca31",
+					"database_id": "ba52668e-06f4-49f8-baf5-a5658385b850",
 					"migrations_dir": "../api/src/database/migrations",
 					"migrations_table": "migrations",
 					"remote": true
 				}
 			],
-			"r2_buckets": [
-				{
-					"bucket_name": "talash-storage",
-					"binding": "TALASH_STORAGE",
-					"remote": true
-				}
-			],
+			// R2 and queues omitted until enabled on this Cloudflare account.
 			"kv_namespaces": [
 				{
 					"binding": "TALASH_KV",
-					"id": "TALASH_KV_PRODUCTION_ID"
+					"id": "24e65a2585ff4c22ad809799bb2f65bb"
 				}
 			],
-			"queues": {
-				"producers": [
-					{
-						"queue": "talash-queues",
-						"binding": "TALASH_QUEUE",
-						"remote": true
-					}
-				]
-			},
 			"ai": {
 				"binding": "TALASH_AI"
 			},
 			"services": [
-				{ "binding": "AUTH_SERVICE", "service": "talash-auth-service" }
+				{ "binding": "AUTH_SERVICE", "service": "talash-auth-service-production" }
 			]
 		}
 	}

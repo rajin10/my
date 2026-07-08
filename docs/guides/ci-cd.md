@@ -116,3 +116,7 @@ See [EAS Deployment](eas-deployment.md) for profiles, credentials, and Play Stor
 2. Ensure the package appears in `turbo.json`'s `deploy` task (no change needed if it inherits the root task).
 3. Add a package flag and a `cloudflare/wrangler-action@v3` step in `.github/workflows/ci.yml`.
 4. The path-based scoping remains automatic — turbo's graph detects which packages are affected.
+
+## Manual DB seed
+
+The **DB Seed** workflow (`.github/workflows/db-seed.yml`, workflow_dispatch) seeds the shared remote D1 with faker demo data from a Linux runner: Actions tab -> DB Seed -> Run workflow (inputs: user count, RNG seed). Use this instead of running `cli db seed --env staging` on low-memory Windows machines, where the CLI's local workerd step fails.

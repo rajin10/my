@@ -57,6 +57,34 @@
 					"remote": false
 				}
 			]
+		},
+		"production": {
+			"vars": {
+				"ENVIRONMENT": "production",
+				"ALLOWED_ORIGINS": "https://talash.mahannankhan.info, https://business.mahannankhan.info, https://talash-marketing-site-staging.rajinhasan-app.workers.dev, https://talash-business-dashboard-staging.rajinhasan-app.workers.dev",
+				"PUBLIC_R2_URL": "https://storage.mahannankhan.info",
+				"ALLOWED_RESET_URIS": "https://talash.mahannankhan.info/auth/reset-password,https://business.mahannankhan.info/auth/reset-password,mobileapp://auth/reset-password,ownerapp://auth/reset-password",
+				"EMAIL_FROM": "noreply@mahannankhan.info",
+				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com"
+			},
+			"d1_databases": [
+				{
+					"binding": "TALASH_DB",
+					"database_name": "talash-db",
+					"database_id": "ba52668e-06f4-49f8-baf5-a5658385b850",
+					"migrations_dir": "../api/src/database/migrations",
+					"migrations_table": "migrations",
+					"remote": true
+				}
+			],
+			"kv_namespaces": [
+				{
+					"binding": "TALASH_KV",
+					"id": "24e65a2585ff4c22ad809799bb2f65bb"
+				}
+			]
+			// R2 omitted until enabled on this Cloudflare account (avatar
+			// uploads will fail until then).
 		}
 	}
 }
