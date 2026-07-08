@@ -16,3 +16,5 @@ Deploy targets:
 bun run --filter @repo/business-dashboard deploy:staging
 bun run --filter @repo/business-dashboard deploy:production
 ```
+
+Staging deploys run via GitHub Actions (push to `staging`) and serve on the account's workers.dev subdomain.
