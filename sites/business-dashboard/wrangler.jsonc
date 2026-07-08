@@ -61,23 +61,7 @@
 				"NEXT_PUBLIC_GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
 				"NEXT_PUBLIC_MARKETING_URL": "https://business.talash.com.bd",
 				"SITE_URL": "https://business.talash.com.bd"
-			},
-			"routes": [
-				{
-					"pattern": "business.talash.bd",
-					"zone_name": "talash.bd",
-					"custom_domain": true,
-					"enabled": true,
-					"previews_enabled": false
-				},
-				{
-					"pattern": "business.talash.com.bd",
-					"zone_name": "talash.com.bd",
-					"custom_domain": true,
-					"enabled": true,
-					"previews_enabled": false
-				}
-			]
+			}
 		},
 		"production": {
 			"vars": {
