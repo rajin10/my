@@ -3,7 +3,7 @@
 	"name": "talash-auth-service",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-05-26",
-	"account_id": "e24dc81d9dd498a4f9a012836121167b",
+	"account_id": "3050ff2d8ab060d6c522bbea5f8ff1a3",
 	"observability": {
 		"logs": {
 			"enabled": true,
@@ -28,7 +28,7 @@
 				"ALLOWED_ORIGINS": "http://localhost:3000,http://localhost:3001",
 				"PUBLIC_R2_URL": "storage.talash.bd",
 				"ALLOWED_RESET_URIS": "http://localhost:3000/auth/reset-password,http://localhost:3001/auth/reset-password,mobileapp://auth/reset-password,ownerapp://auth/reset-password",
-				"EMAIL_FROM": "noreply@talash.bd",
+				"EMAIL_FROM": "noreply@mahannankhan.info",
 				"JWT_SECRET": "local-dev-jwt-secret-32chars-min!!",
 				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
 				"GOOGLE_CLIENT_SECRET": "local-dev-secret"

@@ -28,8 +28,8 @@ export function renderAllEnvFiles(secrets: DevSecrets): RenderedEnvFiles {
 		`GOOGLE_CLIENT_SECRET=${q(secrets.googleClientSecret)}`,
 		`ALLOWED_ORIGINS=${q(origins)}`,
 		`ALLOWED_RESET_URIS=${q(resetUris)}`,
-		'PUBLIC_R2_URL="https://storage.talash.bd"',
-		'EMAIL_FROM="noreply@talash.bd"',
+		'PUBLIC_R2_URL="https://storage.mahannankhan.info"',
+		'EMAIL_FROM="noreply@mahannankhan.info"',
 		"",
 	].join("\n");
 
@@ -69,13 +69,13 @@ export function isLocalDevEnv(key: string, content: string): boolean {
 		return (
 			content.includes("ENVIRONMENT=development") &&
 			content.includes("localhost:3000") &&
-			!content.includes("api.talash.bd")
+			!content.includes("api.mahannankhan.info")
 		);
 	}
 	if (key === "marketingEnv" || key === "dashboardEnv") {
 		return (
 			content.includes("NEXT_PUBLIC_API_URL=http://localhost:8787") &&
-			!content.includes("NEXT_PUBLIC_API_URL=https://api.talash")
+			!content.includes("NEXT_PUBLIC_API_URL=https://api.mahannankhan")
 		);
 	}
 	if (key === "mobileEnv" || key === "ownerEnv") {

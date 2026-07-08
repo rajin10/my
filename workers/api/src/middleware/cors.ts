@@ -6,6 +6,10 @@ const defaultAllowedOrigins = [
 	"http://localhost:5174",
 	"http://localhost:3000",
 	"http://localhost:3001",
+	"https://talash.mahannankhan.info",
+	"https://business.mahannankhan.info",
+	"https://talash-marketing-site-staging.rajinhasan-app.workers.dev",
+	"https://talash-business-dashboard-staging.rajinhasan-app.workers.dev",
 ];
 
 function parseAllowedOrigins(value: string | undefined): string[] {
@@ -25,10 +29,6 @@ function getAllowedOrigins(env: CloudflareBindings): Set<string> {
 export const corsMiddleware = cors({
 	origin: (origin, c) => {
 		if (
-			origin.endsWith(".talash.bd") ||
-			origin.endsWith(".talash.com.bd") ||
-			origin.endsWith(".hasibur.workers.dev") ||
-			origin.endsWith(".hasib.dev") ||
 			origin.endsWith(".googleapis.com") ||
 			origin.endsWith(".google.com")
 		) {

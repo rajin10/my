@@ -32,7 +32,7 @@ export function injectServices(installers: readonly ServiceInstaller[]) {
 			queue: new QueueProducer(c.env.TALASH_QUEUE!),
 			storage: new R2Storage(
 				c.env.TALASH_STORAGE!,
-				c.env.PUBLIC_R2_URL ?? "storage.talash.bd",
+				c.env.PUBLIC_R2_URL ?? "storage.mahannankhan.info",
 			),
 			kv: c.env.TALASH_KV,
 			authz: new AuthorizationService(

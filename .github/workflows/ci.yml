@@ -205,8 +205,8 @@ jobs:
         if: steps.scope.outputs.marketing == 'true'
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
         env:
-          NEXT_PUBLIC_API_URL: ${{ github.ref == 'refs/heads/staging' && 'https://api.talash.com.bd' || 'https://api.talash.bd' }}
-          API_URL: ${{ github.ref == 'refs/heads/staging' && 'https://api.talash.com.bd' || 'https://api.talash.bd' }}
+          NEXT_PUBLIC_API_URL: https://api.mahannankhan.info
+          API_URL: https://api.mahannankhan.info
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -219,8 +219,8 @@ jobs:
         if: steps.scope.outputs.dashboard == 'true'
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3.15.0
         env:
-          NEXT_PUBLIC_API_URL: ${{ github.ref == 'refs/heads/staging' && 'https://api.talash.com.bd' || 'https://api.talash.bd' }}
-          API_URL: ${{ github.ref == 'refs/heads/staging' && 'https://api.talash.com.bd' || 'https://api.talash.bd' }}
+          NEXT_PUBLIC_API_URL: https://api.mahannankhan.info
+          API_URL: https://api.mahannankhan.info
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

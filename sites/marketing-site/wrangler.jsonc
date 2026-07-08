@@ -53,31 +53,24 @@
 		"staging": {
 			"vars": {
 				"NEXTJS_ENV": "staging",
-				"API_URL": "https://api.talash.com.bd",
-				"NEXT_PUBLIC_API_URL": "https://api.talash.com.bd",
-				"NEXT_PUBLIC_SITE_URL": "https://talash.com.bd",
+				"API_URL": "https://api.mahannankhan.info",
+				"NEXT_PUBLIC_API_URL": "https://api.mahannankhan.info",
+				"NEXT_PUBLIC_SITE_URL": "https://talash-marketing-site-staging.rajinhasan-app.workers.dev",
 				"NEXT_PUBLIC_GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
 			}
 		},
 		"production": {
 			"vars": {
 				"NEXTJS_ENV": "production",
-				"API_URL": "https://api.talash.bd",
-				"NEXT_PUBLIC_API_URL": "https://api.talash.bd",
-				"NEXT_PUBLIC_SITE_URL": "https://talash.bd",
+				"API_URL": "https://api.mahannankhan.info",
+				"NEXT_PUBLIC_API_URL": "https://api.mahannankhan.info",
+				"NEXT_PUBLIC_SITE_URL": "https://talash.mahannankhan.info",
 				"NEXT_PUBLIC_GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
 			},
 			"routes": [
 				{
-					"pattern": "talash.bd",
-					"zone_name": "talash.bd",
-					"custom_domain": true,
-					"enabled": true,
-					"previews_enabled": false
-				},
-				{
-					"pattern": "talash.com.bd",
-					"zone_name": "talash.com.bd",
+					"pattern": "talash.mahannankhan.info",
+					"zone_name": "mahannankhan.info",
 					"custom_domain": true,
 					"enabled": true,
 					"previews_enabled": false

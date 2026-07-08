@@ -97,7 +97,7 @@ export default function ForBusinessPage() {
 							without the admin overhead.
 						</p>
 						<div className="flex flex-wrap gap-3 md:gap-3.5 mt-8 md:mt-9">
-							<Link href="https://business.talash.bd" className="no-underline">
+							<Link href="https://business.mahannankhan.info" className="no-underline">
 								<Button variant="dark" size="lg" icon="ArrowRight">
 									Start for free
 								</Button>
@@ -183,7 +183,7 @@ export default function ForBusinessPage() {
 						Join businesses across Bangladesh already using Talash to fill their
 						calendars.
 					</p>
-					<Link href="https://business.talash.bd" className="no-underline">
+					<Link href="https://business.mahannankhan.info" className="no-underline">
 						<Button variant="light" size="lg" icon="ArrowRight">
 							List your business — it's free
 						</Button>

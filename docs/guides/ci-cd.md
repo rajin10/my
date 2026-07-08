@@ -52,10 +52,11 @@ Wrangler action inputs used in this repo:
 
 For the two Next.js apps (`sites/marketing-site`, `sites/business-dashboard`), the workflow uses `preCommands: bunx opennextjs-cloudflare build` before `command: deploy`.
 
-Because `NEXT_PUBLIC_*` variables are inlined at build time, CI sets `NEXT_PUBLIC_API_URL` (and `API_URL`) per branch before running site pre-build:
+Because `NEXT_PUBLIC_*` variables are inlined at build time, CI sets `NEXT_PUBLIC_API_URL` (and `API_URL`) before running site pre-build:
 
-- `staging` branch -> `https://api.talash.com.bd`
-- `main` branch -> `https://api.talash.bd`
+- both branches -> `https://api.mahannankhan.info`
+
+Staging site deploys carry no custom-domain routes and serve on the account's `workers.dev` subdomain; production deploys attach `talash.mahannankhan.info` (marketing) and `business.mahannankhan.info` (dashboard).
 
 **D1 migrations** run automatically before the API worker deploy (and only when `@repo/api` is in scope) via `d1 migrations apply TALASH_DB --remote`. This is idempotent — only unapplied migrations execute. Additive migrations (new tables, new columns with defaults) are safe to run before deploy. Destructive migrations (dropping columns/tables) should be done in two PRs: deploy the code change first, then drop the column.
 

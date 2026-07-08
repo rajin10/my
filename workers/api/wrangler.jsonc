@@ -7,7 +7,7 @@
 	"name": "talash-api",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-05-26",
-	"account_id": "e24dc81d9dd498a4f9a012836121167b",
+	"account_id": "3050ff2d8ab060d6c522bbea5f8ff1a3",
 	"observability": {
 		"logs": {
 			"enabled": true,
@@ -29,7 +29,7 @@
 		// LOCAL-ONLY env: full simulated bindings (no remote, dummy IDs) so
 		// `wrangler dev --env local --local` and `d1 migrations apply --env local
 		// --local` run end-to-end on a clean machine with no Cloudflare auth.
-		// Never used for deploys — test/staging/production are the deploy source of truth.
+		// Never used for deploys â€” test/staging/production are the deploy source of truth.
 		"local": {
 			"vars": {
 				"ENVIRONMENT": "development",
@@ -37,7 +37,7 @@
 				"PUBLIC_R2_URL": "storage.talash.bd",
 				"ALLOWED_ORIGINS": "http://localhost:3000,http://localhost:3001",
 				"ALLOWED_RESET_URIS": "http://localhost:3000/auth/reset-password,http://localhost:3001/auth/reset-password,mobileapp://auth/reset-password,ownerapp://auth/reset-password",
-				"EMAIL_FROM": "noreply@talash.bd",
+				"EMAIL_FROM": "noreply@mahannankhan.info",
 				"JWT_SECRET": "a94db32b-08ec-4cbc-9795-a17aa55ca685",
 				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com"
 			},
@@ -136,9 +136,9 @@
 			"vars": {
 				"ENVIRONMENT": "staging",
 				"ENABLE_OTP_DEV_RESPONSE": "false",
-				"PUBLIC_R2_URL": "https://storage.talash.bd",
+				"PUBLIC_R2_URL": "https://storage.mahannankhan.info",
 				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
-				"ALLOWED_ORIGINS": "https://talash.bd, https://www.talash.bd, https://studio.talash.bd, https://www.studio.talash.bd, https://business.talash.bd, https://www.business.talash.bd, https://talash-marketing-site.hasibur.workers.dev, https://talash-business-dashboard.hasibur.workers.dev, https://talash-marketing-site-staging.hasibur.workers.dev, https://talash-business-dashboard-staging.hasibur.workers.dev"
+				"ALLOWED_ORIGINS": "https://talash.mahannankhan.info, https://business.mahannankhan.info, https://talash-marketing-site.rajinhasan-app.workers.dev, https://talash-business-dashboard.rajinhasan-app.workers.dev, https://talash-marketing-site-staging.rajinhasan-app.workers.dev, https://talash-business-dashboard-staging.rajinhasan-app.workers.dev"
 			},
 			"ai": {
 				"binding": "TALASH_AI",
@@ -193,9 +193,9 @@
 			"vars": {
 				"ENVIRONMENT": "production",
 				"ENABLE_OTP_DEV_RESPONSE": "false",
-				"PUBLIC_R2_URL": "https://storage.talash.bd",
+				"PUBLIC_R2_URL": "https://storage.mahannankhan.info",
 				"GOOGLE_CLIENT_ID": "163196138441-dvuciv0t2ddnkr61fck5r9i9v2jq0a64.apps.googleusercontent.com",
-				"ALLOWED_ORIGINS": "https://talash.bd, https://www.talash.bd, https://studio.talash.bd, https://www.studio.talash.bd, https://talash-marketing-site.hasibur.workers.dev, https://talash-business-dashboard.hasibur.workers.dev, https://talash-marketing-site-production.hasibur.workers.dev, https://talash-business-dashboard-production.hasibur.workers.dev"
+				"ALLOWED_ORIGINS": "https://talash.mahannankhan.info, https://talash-marketing-site.rajinhasan-app.workers.dev, https://talash-business-dashboard.rajinhasan-app.workers.dev, https://talash-marketing-site-production.rajinhasan-app.workers.dev, https://talash-business-dashboard-production.rajinhasan-app.workers.dev"
 			},
 			"ai": {
 				"binding": "TALASH_AI",
@@ -247,15 +247,8 @@
 			],
 			"routes": [
 				{
-					"pattern": "api.talash.bd",
-					"zone_name": "talash.bd",
-					"custom_domain": true,
-					"enabled": true,
-					"previews_enabled": false
-				},
-				{
-					"pattern": "api.talash.com.bd",
-					"zone_name": "talash.com.bd",
+					"pattern": "api.mahannankhan.info",
+					"zone_name": "mahannankhan.info",
 					"custom_domain": true,
 					"enabled": true,
 					"previews_enabled": false

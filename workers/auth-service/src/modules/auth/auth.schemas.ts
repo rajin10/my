@@ -92,7 +92,7 @@ export const GoogleUrlQuerySchema = z
 		redirect_uri: z
 			.string()
 			.url()
-			.openapi({ example: "https://talash.bd/auth/callback" }),
+			.openapi({ example: "https://talash.mahannankhan.info/auth/callback" }),
 		source: SignInSourceSchema,
 	})
 	.openapi("GoogleUrlQuery");
@@ -141,7 +141,7 @@ export const ForgotPasswordBodySchema = z
 	.object({
 		email: z.string().email().openapi({ example: "user@example.com" }),
 		reset_uri: z.string().min(1).openapi({
-			example: "https://talash.bd/auth/reset-password",
+			example: "https://talash.mahannankhan.info/auth/reset-password",
 			description:
 				"Client-specific reset page URI; must match ALLOWED_RESET_URIS",
 		}),

@@ -20,7 +20,7 @@ const companyLinks = [
 
 const businessLinks = [
 	{ label: "List your business", href: "/for-business" },
-	{ label: "Owner dashboard", href: "https://business.talash.bd" },
+	{ label: "Owner dashboard", href: "https://business.mahannankhan.info" },
 	{ label: "Book a demo", href: "/for-business" },
 ];
 

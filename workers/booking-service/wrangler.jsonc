@@ -3,7 +3,7 @@
 	"name": "talash-booking-service",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-05-26",
-	"account_id": "e24dc81d9dd498a4f9a012836121167b",
+	"account_id": "3050ff2d8ab060d6c522bbea5f8ff1a3",
 	"observability": {
 		"logs": {
 			"enabled": true,
@@ -72,8 +72,8 @@
 		"staging": {
 			"vars": {
 				"ENVIRONMENT": "staging",
-				"PUBLIC_R2_URL": "https://storage.talash.bd",
-				"ALLOWED_ORIGINS": "https://talash.bd, https://www.talash.bd, https://studio.talash.bd, https://www.studio.talash.bd, https://business.talash.bd, https://www.business.talash.bd"
+				"PUBLIC_R2_URL": "https://storage.mahannankhan.info",
+				"ALLOWED_ORIGINS": "https://talash.mahannankhan.info, https://business.mahannankhan.info"
 			},
 			"d1_databases": [
 				{
@@ -117,8 +117,8 @@
 		"production": {
 			"vars": {
 				"ENVIRONMENT": "production",
-				"PUBLIC_R2_URL": "https://storage.talash.bd",
-				"ALLOWED_ORIGINS": "https://talash.bd, https://www.talash.bd, https://studio.talash.bd, https://www.studio.talash.bd"
+				"PUBLIC_R2_URL": "https://storage.mahannankhan.info",
+				"ALLOWED_ORIGINS": "https://talash.mahannankhan.info"
 			},
 			"d1_databases": [
 				{

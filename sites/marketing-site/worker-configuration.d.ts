@@ -3532,7 +3532,7 @@ declare abstract class Span {
 //
 // Public type surface for user Workers binding to an Agent Memory namespace.
 // ============================================================================
-/** Memory type — every memory is classified into exactly one. */
+/** Memory type â€” every memory is classified into exactly one. */
 type AgentMemoryMemoryType = "fact" | "event" | "instruction" | "task";
 /** Search intensity for recall. */
 type AgentMemoryThinkingLevel = "low" | "medium" | "high";
@@ -3835,7 +3835,7 @@ type AiSearchChatCompletionsRequest = {
     [key: string]: unknown;
 };
 // ============ AI Search Multi-Instance Types (Namespace-Scoped) ============
-/** `ai_search_options` shape for multi-instance requests — requires `instance_ids`. */
+/** `ai_search_options` shape for multi-instance requests â€” requires `instance_ids`. */
 type AiSearchMultiSearchOptions = AiSearchOptions & {
     /** Instance IDs to search across (1-10). */
     instance_ids: string[];
@@ -4397,9 +4397,9 @@ declare abstract class AiSearchInstance {
      * @returns Statistics with counts per status, last activity time, and engine details.
      */
     stats(): Promise<AiSearchStatsResponse>;
-    /** Items collection — list, upload, and manage items in this instance. */
+    /** Items collection â€” list, upload, and manage items in this instance. */
     get items(): AiSearchItems;
-    /** Jobs collection — list, create, and inspect indexing jobs. */
+    /** Jobs collection â€” list, create, and inspect indexing jobs. */
     get jobs(): AiSearchJobs;
 }
 /**
@@ -4449,7 +4449,7 @@ declare abstract class AiSearchNamespace {
     list(params?: AiSearchListInstancesParams): Promise<AiSearchListResponse>;
     /**
      * Create a new instance within the bound namespace.
-     * @param config Instance configuration. Only `id` is required — omit `type` and `source` to create with built-in storage.
+     * @param config Instance configuration. Only `id` is required â€” omit `type` and `source` to create with built-in storage.
      * @returns Instance service for the newly created instance.
      *
      * @example
@@ -10212,8 +10212,8 @@ declare abstract class Ai<AiModelList extends AiModelListType = AiModels> {
     // route any model name that is a literal key of `AiModelList` to one of
     // the known-model overloads above (so input/output mismatches surface as
     // type errors rather than silently falling back to `Record<string, unknown>`).
-    // Names that aren't in `AiModelList` — e.g. third-party gateway models
-    // like `"google/nano-banana"` — still hit this overload.
+    // Names that aren't in `AiModelList` â€” e.g. third-party gateway models
+    // like `"google/nano-banana"` â€” still hit this overload.
     run<Model extends string>(model: Model extends keyof AiModelList ? never : Model, inputs: Record<string, unknown>, options?: AiOptions): Promise<Record<string, unknown>>;
     models(params?: AiModelsSearchParams): Promise<AiModelsSearchObject[]>;
     toMarkdown(): ToMarkdownService;
@@ -10320,7 +10320,7 @@ declare abstract class AiGateway {
 // Licensed under the Apache 2.0 license found in the LICENSE file or at:
 //     https://opensource.org/licenses/Apache-2.0
 /**
- * Artifacts — Git-compatible file storage on Cloudflare Workers.
+ * Artifacts â€” Git-compatible file storage on Cloudflare Workers.
  *
  * Provides programmatic access to create, manage, and fork repositories,
  * and to issue and revoke scoped access tokens.
@@ -10348,7 +10348,7 @@ interface ArtifactsRepoInfo {
     /** HTTPS git remote URL. */
     remote: string;
 }
-/** Result of creating a repository — includes the initial access token. */
+/** Result of creating a repository â€” includes the initial access token. */
 interface ArtifactsCreateRepoResult {
     /** Unique repository ID. */
     id: string;
@@ -10427,7 +10427,7 @@ interface ArtifactsRepo extends ArtifactsRepoInfo {
      * @throws {ArtifactsError} with code `INVALID_INPUT` if tokenOrId is empty.
      */
     revokeToken(tokenOrId: string): Promise<boolean>;
-    // ── Fork ──
+    // â”€â”€ Fork â”€â”€
     /**
      * Fork this repo to a new repo.
      * @param name Target repository name.
@@ -10442,7 +10442,7 @@ interface ArtifactsRepo extends ArtifactsRepoInfo {
         defaultBranchOnly?: boolean;
     }): Promise<ArtifactsCreateRepoResult>;
 }
-// ── Error types ──────────────────────────────────────────────────────────────
+// â”€â”€ Error types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 /**
  * Error codes returned by Artifacts binding operations.
  *
@@ -10463,9 +10463,9 @@ interface ArtifactsError extends Error {
     /** Numeric error code matching the REST API. */
     readonly numericCode: number;
 }
-// ── Binding ──────────────────────────────────────────────────────────────────
+// â”€â”€ Binding â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 /**
- * Artifacts binding — namespace-level operations.
+ * Artifacts binding â€” namespace-level operations.
  *
  * Methods may throw `ArtifactsError` with code `INTERNAL_ERROR` if an unexpected service error occurs.
  */
@@ -10521,7 +10521,7 @@ interface Artifacts {
     }): Promise<ArtifactsCreateRepoResult>;
     /**
      * List repositories with cursor-based pagination.
-     * @param opts Optional: limit (1–200, default 50), cursor for next page.
+     * @param opts Optional: limit (1â€“200, default 50), cursor for next page.
      */
     list(opts?: {
         limit?: number;
@@ -11167,7 +11167,7 @@ interface BasicImageTransformations {
      * or an object {x, y} containing focal point coordinates in the original
      * image expressed as fractions ranging from 0.0 (top or left) to 1.0
      * (bottom or right), 0.5 being the center. {fit: "cover", gravity: "top"} will
-     * crop bottom or left and right sides as necessary, but won’t crop anything
+     * crop bottom or left and right sides as necessary, but wonâ€™t crop anything
      * from the top. {fit: "cover", gravity: {x:0.5, y:0.2}} will crop each side to
      * preserve as much as possible around a point at 20% of the height of the
      * source image.
@@ -11175,8 +11175,8 @@ interface BasicImageTransformations {
     gravity?: 'face' | 'left' | 'right' | 'top' | 'bottom' | 'center' | 'auto' | 'entropy' | BasicImageTransformationsGravityCoordinates;
     /**
      * Background color to add underneath the image. Applies only to images with
-     * transparency (such as PNG). Accepts any CSS color (#RRGGBB, rgba(…),
-     * hsl(…), etc.)
+     * transparency (such as PNG). Accepts any CSS color (#RRGGBB, rgba(â€¦),
+     * hsl(â€¦), etc.)
      */
     background?: string;
     /**
@@ -11279,7 +11279,7 @@ interface RequestInitCfProperties extends Record<string, unknown> {
      * be proxied on the same Cloudflare zone of the incoming request.
      * Otherwise, the setting is ignored. CNAME hosts are allowed, so to
      * resolve to a host under a different domain or a DNS only domain first
-     * declare a CNAME record within your own zone’s DNS mapping to the
+     * declare a CNAME record within your own zoneâ€™s DNS mapping to the
      * external hostname, set proxy on Cloudflare, then set resolveOverride
      * to point to that CNAME record.
      */
@@ -11375,7 +11375,7 @@ interface RequestInitCfPropertiesImage extends BasicImageTransformations {
     /**
      * Quality setting from 1-100 (useful values are in 60-90 range). Lower values
      * make images look worse, but load faster. The default is 85. It applies only
-     * to JPEG and WebP images. It doesn’t have any effect on PNG.
+     * to JPEG and WebP images. It doesnâ€™t have any effect on PNG.
      */
     quality?: number | "low" | "medium-low" | "medium-high" | "high";
     /**
@@ -11385,7 +11385,7 @@ interface RequestInitCfPropertiesImage extends BasicImageTransformations {
      *    the WebP-lossless format.
      *  - json: instead of generating an image, outputs information about the
      *    image, in JSON format. The JSON object will contain image size
-     *    (before and after resizing), source image’s MIME type, file size, etc.
+     *    (before and after resizing), source imageâ€™s MIME type, file size, etc.
      * - jpeg: generate images in JPEG format.
      * - png: generate images in PNG format.
      */
@@ -11584,7 +11584,7 @@ interface IncomingRequestCfPropertiesBase extends Record<string, unknown> {
 }
 interface IncomingRequestCfPropertiesBotManagementBase {
     /**
-     * Cloudflare’s [level of certainty](https://developers.cloudflare.com/bots/concepts/bot-score/) that a request comes from a bot,
+     * Cloudflareâ€™s [level of certainty](https://developers.cloudflare.com/bots/concepts/bot-score/) that a request comes from a bot,
      * represented as an integer percentage between `1` (almost certainly a bot) and `99` (almost certainly human).
      *
      * @example 54

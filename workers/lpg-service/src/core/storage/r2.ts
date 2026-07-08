@@ -5,7 +5,7 @@ export class R2Storage {
 		private readonly bucket: R2Bucket,
 		publicUrl: string,
 	) {
-		// Defend against a scheme-less PUBLIC_R2_URL (e.g. "storage.talash.bd").
+		// Defend against a scheme-less PUBLIC_R2_URL (e.g. "storage.mahannankhan.info").
 		// A bare host renders as a relative path in `<img src>` and 404s in the
 		// browser, so normalize to an absolute https URL and drop any trailing slash.
 		const trimmed = publicUrl.replace(/\/+$/, "");

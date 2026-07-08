@@ -128,10 +128,10 @@ export default function TermsPage() {
 						<p>
 							Questions about these Terms? Email us at{" "}
 							<a
-								href="mailto:legal@talash.bd"
+								href="mailto:legal@mahannankhan.info"
 								className="text-primary-700 underline"
 							>
-								legal@talash.bd
+								legal@mahannankhan.info
 							</a>
 							.
 						</p>

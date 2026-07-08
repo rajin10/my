@@ -95,10 +95,10 @@ export default function PrivacyPage() {
 							correct, or delete your personal data, object to processing, and
 							withdraw consent. To exercise these rights, contact us at{" "}
 							<a
-								href="mailto:privacy@talash.bd"
+								href="mailto:privacy@mahannankhan.info"
 								className="text-primary-700 underline"
 							>
-								privacy@talash.bd
+								privacy@mahannankhan.info
 							</a>
 							.
 						</p>
@@ -146,10 +146,10 @@ export default function PrivacyPage() {
 						<p>
 							Questions about this Privacy Policy? Email{" "}
 							<a
-								href="mailto:privacy@talash.bd"
+								href="mailto:privacy@mahannankhan.info"
 								className="text-primary-700 underline"
 							>
-								privacy@talash.bd
+								privacy@mahannankhan.info
 							</a>{" "}
 							or see our{" "}
 							<Link href="/terms" className="text-primary-700 underline">

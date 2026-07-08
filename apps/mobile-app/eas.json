@@ -20,7 +20,7 @@
 				"buildType": "apk"
 			},
 			"env": {
-				"EXPO_PUBLIC_API_URL": "https://api.talash.com.bd"
+				"EXPO_PUBLIC_API_URL": "https://api.mahannankhan.info"
 			}
 		},
 		"preview": {
@@ -31,7 +31,7 @@
 				"buildType": "apk"
 			},
 			"env": {
-				"EXPO_PUBLIC_API_URL": "https://api.talash.com.bd"
+				"EXPO_PUBLIC_API_URL": "https://api.mahannankhan.info"
 			}
 		},
 		"production": {
@@ -42,7 +42,7 @@
 				"autoIncrement": true
 			},
 			"env": {
-				"EXPO_PUBLIC_API_URL": "https://api.talash.bd"
+				"EXPO_PUBLIC_API_URL": "https://api.mahannankhan.info"
 			}
 		}
 	},

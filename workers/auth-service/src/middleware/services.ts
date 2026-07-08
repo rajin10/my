@@ -15,7 +15,7 @@ export function injectServices(installers: readonly ServiceInstaller[]) {
 			env: c.env,
 			storage: new R2Storage(
 				c.env.TALASH_STORAGE,
-				c.env.PUBLIC_R2_URL ?? "storage.talash.bd",
+				c.env.PUBLIC_R2_URL ?? "storage.mahannankhan.info",
 			),
 		};
 

@@ -7,7 +7,7 @@
 	"name": "talash-queue",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-05-26",
-	"account_id": "e24dc81d9dd498a4f9a012836121167b",
+	"account_id": "3050ff2d8ab060d6c522bbea5f8ff1a3",
 	"compatibility_flags": ["nodejs_compat"],
 	"observability": {
 		"logs": {
